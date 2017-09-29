@@ -5,6 +5,8 @@ public class Chatbot {
 	private String username;
 	private boolean chatting;
 	private Topic ethan;
+	private Topic jasonY;
+	private Topic jasonZ;
 	
 	public Chatbot() {
 		ethan = new ChatbotEthan();
