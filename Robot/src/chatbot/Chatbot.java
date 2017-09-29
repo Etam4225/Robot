@@ -5,11 +5,16 @@ public class Chatbot {
 	private String username;
 	private boolean chatting;
 	private Topic ethan;
-	private Topic jasonY;
-	private Topic jasonZ;
+	private Topic jasony;
+	private Topic JasonZ;
+	private Topic david;
 	
 	public Chatbot() {
 		ethan = new ChatbotEthan();
+		jasony = new Chatbotjasony();
+		JasonZ = new ChatbotJasonZ();
+		david = new Chatbotdavid();
+		//ADD YOUR CLASSES
 		username = "Unknown User";
 		chatting = true;
 	}
@@ -21,6 +26,12 @@ public class Chatbot {
 	public Topic getEthan() {
 		return ethan;
 	}
+	public Topic getjasony() {
+		return jasony;
+	}
+	public Topic getJasonZ() {
+		return JasonZ;
+	}
 	public void startChatting() {
 		ChatbotMain.print("Hi! I am an intelligent machine that can respond to your input. Tell me your name.");
 		username = ChatbotMain.getInput();
@@ -31,8 +42,19 @@ public class Chatbot {
 				chatting = false;//exits the while loop
 				//IMPORTANT TO KNOW YOU GET GRADED FOR THIS
 				ethan.talk(response);
+				//isTriggered for every topic.
+			}else if(jasony.isTriggered(response)) {
+				chatting = false;
+				jasony.talk(response);
+			}else if(JasonZ.isTriggered(response)) {
+				chatting = false;//exits the while loop
+				JasonZ.talk(response);
 				
-			}else {
+			}else if(david.isTriggered(response)) {
+				chatting = false;//exits the while loop
+				david.talk(response);
+			}
+			else {
 				ChatbotMain.print("I'm sorry. I don't understand. I never said I was perfect.");
 			}
 		}
