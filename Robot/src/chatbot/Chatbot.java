@@ -47,11 +47,11 @@ public class Chatbot {
 				chatting = false;
 				jasony.talk(response);
 			}else if(JasonZ.isTriggered(response)) {
-				chatting = false;//exits the while loop
+				chatting = false;
 				JasonZ.talk(response);
 				
 			}else if(david.isTriggered(response)) {
-				chatting = false;//exits the while loop
+				chatting = false;
 				david.talk(response);
 			}
 			else {
