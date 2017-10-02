@@ -36,7 +36,28 @@ public class ChatbotMain {
 		return -1;
 	}
 	public static boolean keywordIsIsolated(int psn, String keyword, String s){
-		return true;
+		int startOfString = psn - 1;
+		int endOfString = psn + keyword.length();
+		
+		if(endOfString > s.length())
+		{
+			return false;
+		}
+		if(s.substring(startOfString, psn).compareTo("a") < 0)
+		{
+			if(s.substring(endOfString, endOfString + 1).compareTo("a") < 0)
+			{
+				return true; 
+			}
+			else 
+			{
+				return false;
+			}
+		}
+		else 
+		{
+			return false;
+		}
 	}
 
 	public static boolean noNegations(String s, int psn){
