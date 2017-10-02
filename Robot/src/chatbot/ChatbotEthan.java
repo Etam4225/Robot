@@ -21,6 +21,7 @@ public class ChatbotEthan implements Topic {
 		
 		saidYesorNo = false;
 		String[] botAnnoyed = {"for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
+		annoyed = botAnnoyed;
 		
 		response = "";
 	}
