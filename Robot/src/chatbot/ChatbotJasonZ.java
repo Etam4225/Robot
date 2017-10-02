@@ -8,10 +8,11 @@ public class ChatbotJasonZ implements Topic {
 	private String response;
 	
 	public ChatbotJasonZ() {
-		String[] temp = {"stuff","things","whatever","nothing"};
+		String[] songs = {"The Shadow of the Past","A knife in the dark","Flight to the ford","Many Meeting","The Council of Elrond","The ring goes South","The bridge of Khazad Dum","Lothlorien", "Amon Hend","The breaking of the fellowship","May it be"};
+		String[] temp = {"lord of the ring's music", "lord of the rings music"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "music";
+		secretKeyword = "Concerning Hobbits";
 		response = "";
 	}
 
@@ -21,9 +22,29 @@ public class ChatbotJasonZ implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
-				ChatbotMain.print("I can't even. I love pugs so much. Wow. You are so cool.");
+				ChatbotMain.print("Wow I love that song! isn't the title amazing?.");
 				response = ChatbotMain.getInput();
-			}else {
+			}
+			
+			if(ChatbotMain.findKeyword(response, "Yes", 0) >= 0)
+			{
+				double rand = Math.random();
+				if(rand <= (1/11))
+				{
+					ChatbotMain.print("Wow! You know The Shadow of the Past? Don't you love the string instruments and the voice?");
+					response = ChatbotMain.getInput();
+					countineTalkingAboutSubject(response);
+				}
+				else 
+				{
+					if(rand <= 2/11)
+					{
+						
+					}
+				}
+			}
+			else 
+			{
 				ChatbotMain.print("Yeah. That's pretty cool. But there are things I like even more. Tell me something else.");
 				response = ChatbotMain.getInput();
 			}
@@ -31,6 +52,11 @@ public class ChatbotJasonZ implements Topic {
 		//access variables from other classes
 		ChatbotMain.print("Well, it was nice talking to you, "+ChatbotMain.chatbot.getUsername()+"!");
 		ChatbotMain.chatbot.startChatting();
+		
+	}
+
+	private void countineTalkingAboutSubject(String response) {
+		
 		
 	}
 
