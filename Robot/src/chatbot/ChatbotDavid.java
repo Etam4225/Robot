@@ -11,7 +11,7 @@ public class ChatbotDavid implements Topic {
 		String[] temp = {"book", "novel", "read", "reading", "books", "novels"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "pug";
+		secretKeyword = "Lord of The Rings";
 		response = "";
 	}
 
@@ -20,7 +20,7 @@ public class ChatbotDavid implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
-				ChatbotMain.print("I can't even. I love pugs so much. Wow. You are so cool.");
+				ChatbotMain.print("I've read that series! It's pretty good but there are other books that are better. Have you seen the movie?");
 				response = ChatbotMain.getInput();
 			}else {
 				ChatbotMain.print("Yeah. That's pretty cool. But there are things I like even more. Tell me something else.");
