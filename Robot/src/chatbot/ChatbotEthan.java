@@ -9,6 +9,8 @@ public class ChatbotEthan implements Topic {
 	private String YES = "YES";
 	private String NO = "NO";
 	private boolean saidYesorNo;
+	private String[] annoyed;
+	
 	
 	public ChatbotEthan() {
 		String[] temp = {"movie","lord of the rings", "watching"};
@@ -17,13 +19,15 @@ public class ChatbotEthan implements Topic {
 		goodbyeKeyword = "bye";
 		secretKeyword = "Lord of the Rings";
 		
+		saidYesorNo = false;
+		String[] botAnnoyed = {"for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
+		
 		response = "";
 	}
 
 	public void talk(String response) {
 		ChatbotMain.print("Movies eh? I love movies to be honest. Hey, " + ChatbotMain.chatbot.getUsername() + ", you like movies man? Yes or no?");
 		response = ChatbotMain.getInput();
-		saidYesorNo = false;
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, YES, 0) >= 0) {
 				
