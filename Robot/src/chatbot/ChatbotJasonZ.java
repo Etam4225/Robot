@@ -7,6 +7,7 @@ public class ChatbotJasonZ implements Topic {
 	private String secretKeyword;
 	private String response;
 	private String[] songs;
+	private String[] stringSongs;
 	
 	public ChatbotJasonZ() {
 		String[] songs = {"The Shadow of the Past","A Knife in the Dark","Flight to the Ford","Many Meeting","The Council of Elrond","The Ring goes South","The Bridge of Khazad Dum","Lothlorien", "Amon Hend","The Breaking of the Fellowship","May it be"};
