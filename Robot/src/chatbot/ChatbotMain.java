@@ -82,10 +82,40 @@ public class ChatbotMain {
 				return false;
 			}
 		}
-	}}
 	}
 
 	public static boolean noNegations(String s, int psn){
+		int start = psn - 1;
+		int startOfNegation = psn - 4;
+		int condition = 0;
+		
+		try
+		{
+			if(s.substring(start, psn).compareTo("a") < 0)
+			{
+				condition ++;
+			}
+			else 
+			{
+				return true;
+			}
+		}
+		catch(StringIndexOutOfBoundsException g)
+		{
+			return true; 
+		}
+		
+		if(condition == 1)
+		{
+			if(s.substring(startOfNegation, start).equals("not"))
+			{
+				return false;
+			}
+			else 
+			{
+				return true;
+			}
+		}
 		return true;
 	}
 
