@@ -11,7 +11,7 @@ public class Chatbot {
 	
 	public Chatbot() {
 		ethan = new ChatbotEthan();
-		//jasony = new ChatbotJasony();
+		jasony = new ChatbotJasony();
 		JasonZ = new ChatbotJasonZ();
 		david = new ChatbotDavid();
 		//ADD YOUR CLASSES
