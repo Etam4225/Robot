@@ -79,7 +79,7 @@ public class ChatbotMain {
 			}
 			catch(StringIndexOutOfBoundsException r)
 			{
-				return false;
+				return true;
 			}
 		}
 	}
