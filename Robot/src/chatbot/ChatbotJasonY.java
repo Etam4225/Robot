@@ -7,23 +7,23 @@ public class ChatbotJasonY implements Topic{
 	private String response;
 	
 	public ChatbotJasonY() {
-		String[] temp = {"stuff", "things", "whatever", "nothing"};
+		String[] temp = {"Final Fantasy", "World of Warcraft", "Overwatch", "League of Legends", "Grand Theft Auto", "Heartstone", "Pokemon"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "pug";
+		secretKeyword = "Grand Chase";
 		response = "";
 	}
 	
 	public void talk(String response) {
-		ChatbotMain.print("Hey! So you want to talk about generic boring things, huh? I love talking about that,");
+		ChatbotMain.print("Games, huh? It has the power to turn one into a couch potato or a shut-in.");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
-				ChatbotMain.print("I can't even. I love pugs so much. Wow. You're so cool.");
+				ChatbotMain.print("Wow! That's my favorite game! I'm surprised you know that game. Those who know the game call it a rip off of another similar game called Elsword even though it was released in 2003 and Elsword was released in 2007.");
 				response = ChatbotMain.getInput();
 			}
-			else {
-				ChatbotMain.print("Yeah. That't pretty cool. But there are things I like even more. Tell me something else.");
+			if(ChatbotMain.findKeyword(response, keywords[0], 0) >= 0) {
+				ChatbotMain.print("Final Fantasy has a long history. From the first Final Fantasy, which was released in 1987, to Final Fantasy XV ("\n"15"\n" for those of you who can't read Roman numerials), which was released in 2016. Each Final Fantasy game has its own unqiue plot and characters.")
 				response = ChatbotMain.getInput();
 			}
 		}
