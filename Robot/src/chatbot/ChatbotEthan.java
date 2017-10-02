@@ -8,7 +8,8 @@ public class ChatbotEthan implements Topic {
 	private String response;
 	
 	public ChatbotEthan() {
-		String[] temp = {"stuff", "things", "whatever", "nothing"};
+		String[] temp = {"movie","lord of the rings"};
+		
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		secretKeyword = "pug";
