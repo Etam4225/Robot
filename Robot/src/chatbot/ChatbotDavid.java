@@ -15,12 +15,12 @@ public class ChatbotDavid implements Topic {
 		goodbyeKeyword = "bye";
 		secretKeyword = "Lord of The Rings";
 		response = "";
-		String[] list = {""};
+		String[] list = {"This novel is about Wizards", "Lightning Scar", "Boy Who Lived", "There are 7 books in total"};
 		hints = list;
 	}
 
 	public void talk(String response) {
-		ChatbotMain.print("Let's play a game! I'm thinking of a book. Can you guess which one? Here is a hint:");
+		ChatbotMain.print("Let's play a game! I'm thinking of a book. Can you guess which one? Here is a hint: (int )(Math.random() * 4)");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
