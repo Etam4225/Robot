@@ -32,7 +32,7 @@ public class ChatbotEthan implements Topic {
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, YES, 0) >= 0) {
 				
-			}
+			} 
 			else
 			{
 				if(ChatbotMain.findKeyword(response, NO, 0) >= 0) {
