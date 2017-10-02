@@ -17,6 +17,7 @@ public class ChatbotDavid implements Topic {
 		response = "";
 		String[] list = {"This novel is about Wizards", "Lightning Scar", "Boy Who Lived", "There are 7 books in total"};
 		hints = list;
+		score = 500;
 	}
 
 	public void talk(String response) {
