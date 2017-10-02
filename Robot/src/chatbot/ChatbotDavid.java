@@ -6,6 +6,8 @@ public class ChatbotDavid implements Topic {
 	private String goodbyeKeyword;
 	private String secretKeyword;
 	private String response;
+	private String[] hints;
+	private int score;
 	
 	public ChatbotDavid() {
 		String[] temp = {"book", "novel", "read", "reading", "books", "novels"};
@@ -13,10 +15,12 @@ public class ChatbotDavid implements Topic {
 		goodbyeKeyword = "bye";
 		secretKeyword = "Lord of The Rings";
 		response = "";
+		String[] list = {""};
+		hints = list;
 	}
 
 	public void talk(String response) {
-		ChatbotMain.print("Hey! So you like books? I know pretty much everything about books! So tell me a book you like!");
+		ChatbotMain.print("Let's play a game! I'm thinking of a book. Can you guess which one? Here is a hint:");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
