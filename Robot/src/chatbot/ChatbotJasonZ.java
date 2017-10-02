@@ -1,13 +1,13 @@
 package chatbot;
 
-public class ChatbotBen implements Topic {
+public class ChatbotJasonZ implements Topic {
 
 	private String[] keywords;
 	private String goodbyeKeyword;
 	private String secretKeyword;
 	private String response;
 	
-	public ChatbotBen() {
+	public ChatbotJasonZ() {
 		String[] temp = {"stuff","things","whatever","nothing"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
