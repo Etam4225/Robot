@@ -15,7 +15,7 @@ public class ChatbotDavid implements Topic {
 		goodbyeKeyword = "bye";
 		secretKeyword = "Lord of The Rings";
 		response = "";
-		String[] list = {"asd"};
+		String[] list = {""};
 		hints = list;
 	}
 
