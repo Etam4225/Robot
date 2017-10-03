@@ -32,6 +32,9 @@ public class Chatbot {
 	public Topic getJasonZ() {
 		return JasonZ;
 	}
+	public Topic getDavid() {
+		return david;
+	}
 	public void startChatting() {
 		ChatbotMain.print("Hi! I am an intelligent machine that can respond to your input. Tell me your name.");
 		username = ChatbotMain.getInput();
