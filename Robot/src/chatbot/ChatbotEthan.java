@@ -32,6 +32,9 @@ public class ChatbotEthan implements Topic {
 		ChatbotMain.chatbot.startChatting();
 	
 	}
+	public void printMessage(String message) {
+		ChatbotMain.print(message);
+	}
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
 			//IMPORTANT (on rubric) USE FINDKEYWORD OVER INDEX OF
