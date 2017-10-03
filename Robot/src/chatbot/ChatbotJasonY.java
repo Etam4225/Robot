@@ -15,7 +15,7 @@ public class ChatbotJasonY implements Topic{
 	}
 	
 	public void talk(String response) {
-		ChatbotMain.print("Games, huh? It has the power to turn one into a couch potato or a shut-in.");
+		ChatbotMain.print("Games, huh? It has the power to turn one's life into a couch potato or a shut-in.");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
