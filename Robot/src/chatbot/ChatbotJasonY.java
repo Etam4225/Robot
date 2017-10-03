@@ -8,7 +8,8 @@ public class ChatbotJasonY implements Topic{
 	private int happyCount;
 	
 	public ChatbotJasonY() {
-		String[] temp = {"Final Fantasy", "World of Warcraft", "Overwatch", "League of Legends", "Grand Theft Auto", "Heartstone", "Pokemon"};
+		String[] temp = {"Final Fantasy", "World of Warcraft", "Overwatch", "League of Legends", "Grand Theft Auto", "Heartstone", "Pokemon",
+				"Super Smash Brothers"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		secretKeyword = "Grand Chase";
@@ -17,28 +18,60 @@ public class ChatbotJasonY implements Topic{
 	}
 	
 	public void talk(String response) {
-		ChatbotMain.print("Games, huh? It has the power to turn one's life into a couch potato or a shut-in.");
+		ChatbotMain.print("Games, huh? They have the power to turn one's life into a couch potato or a shut-in. Pretty scary stuff but if"
+				+ "played in moderation one can prevent that. But anyways what do you want to talk about.");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
-				ChatbotMain.print("Wow! That's my favorite game! I'm surprised you know that game. Those who know the game call it a rip off of another similar game called Elsword even though it was released in 2003 and Elsword was released in 2007.");
+				ChatbotMain.print("Wow! That's my favorite game! I'm surprised you know that game. Those who know the game call it a rip "
+						+ "off of another similar game called Elsword even though it was released in 2003 and Elsword was released in 2007."
+						+ "Anyways Grand Chase is a platform MMORPG where the player goes around killing monsters to progress through the "
+						+ "stages. There's always a boss monster at the end of the stage. As the player progress, the bosses have more hit "
+						+ "points making it harder to kill. The player can unlock more characters -besides the crappy ones that are given to "
+						+ "the player but Rin is a good character - by buying the missions in the shop and completing them. Some of the "
+						+ "mission may require the player to complete more than mission to unlock the character. "
+						+ "The player can also buy comestics through the means of real life cash.");
 				happyCount++;
 				response = ChatbotMain.getInput();
 			}
+			
 			if(ChatbotMain.findKeyword(response, keywords[0], 0) >= 0) {
-				ChatbotMain.print("Final Fantasy has a long history. From the first Final Fantasy, which was released in 1987, to Final Fantasy XV ("\n"15"\n" for those of you who can't read Roman numerials), which was released in 2016. Each Final Fantasy game has its own unqiue plot and characters.")
+				ChatbotMain.print("Final Fantasy has a long history. From the first Final Fantasy, which was released in 1987, to Final "
+						+ "Fantasy XV, which was released in 2016. The franchise was made from a company called "\n" Each Final Fantasy game "
+						+ "has its own unqiue plot and characters. They are mostly about saving the world from some kind of peril."
+						+ "The franchise is very popular that it even had its own anime adaption and one of the Final Fantasy characters "
+						+ "named \"Cloud\" was released in the game \"Super Smash Brothers\".");
 				response = ChatbotMain.getInput();
 			}
-		}
+			
+			if(ChatbotMain.findKeyword(response,keywords[1], 0) >= 0) {
+				ChatbotMain.print("World of Warcraft or sometimes abbreviated as \"WOW\" is a massively multiplayer online role playing game"
+						+ " also abbreviated as \"MMORPG\". This game was released in 2004 by a company called \"Blizzard\". In the game,"
+						+ " the player goes around killing monster for drops and armor. The materials dropped can be used to ")
+			}
+			ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
+			response = ChatbotMain.getInput();
+		} 
 		
 		if (happyCount > -2) {
-			ChatbotMain.print("Well, I hate talking to you, " + ChatbotMain.chatbot.getUsername().toUpperCase() + "! You're a ****ing ***hole! WORSE PERSON I'VE EVER MEET!" );
+			ChatbotMain.print("Well, I hate talking to you, " + ChatbotMain.chatbot.getUsername().toUpperCase() + "! You're a ****ing ***hole! "
+					+ "WORSE PERSON I'VE EVER MEET!" );
+			ChatbotMain.chatbot.startChatting();
+		}
+		
+		if (happyCount == -2) {
+			ChatbotMain.print("Well, it was *pause* nice talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're a mean person." );
+			ChatbotMain.chatbot.startChatting();
+		}
+		
+		if (happyCount == -1) {
+			ChatbotMain.print("Well, it was *pause* nice talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're negative person." );
 			ChatbotMain.chatbot.startChatting();
 		}
 		
 		if (happyCount == 0) {
-			ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're a decent person." );
-			ChatbotMain.chatbot.startChatting();
+			ChatbotMain.print("Well, it was okay talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're a decent person." );
+			ChatbotMain.chatbot.startChatting();w
 		}
 		
 		if (happyCount == 1) {
@@ -52,7 +85,8 @@ public class ChatbotJasonY implements Topic{
 		}
 		
 		if (happyCount > 2) {
-			ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're the greatest person I've ever meant." );
+			ChatbotMain.print("I LOVE talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're the greatest person I've ever "
+					+ "meet. I wish we could have chatted more.");
 			ChatbotMain.chatbot.startChatting();
 		}
 			
@@ -67,4 +101,3 @@ public class ChatbotJasonY implements Topic{
 		return false; 
 	} 
 }
-
