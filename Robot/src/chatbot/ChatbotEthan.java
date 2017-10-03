@@ -6,12 +6,15 @@ public class ChatbotEthan implements Topic {
 	private String goodbyeKeyword;
 	private String secretKeyword;
 	private String response;
+	private String[] annoyed;
 	
 	public ChatbotEthan() {
-		String[] temp = {"stuff", "things", "whatever", "nothing"};
+		String[] temp = {"movie", "Lord of the Rings", "watch"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "pug";
+		String[] botAnnoyed = {"for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
+		annoyed = botAnnoyed;
+		secretKeyword = "N/A";
 		response = "";
 	}
 
