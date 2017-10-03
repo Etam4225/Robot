@@ -7,6 +7,11 @@ public class ChatbotEthan implements Topic {
 	private String secretKeyword;
 	private String response;
 	private String[] annoyed;
+	private boolean saidYesorNo;
+	private int annoyedCounter;
+	
+	private String YES;
+	private String NO;
 	
 	public ChatbotEthan() {
 		String[] temp = {"movie", "Lord of the Rings", "watch"};
@@ -16,12 +21,25 @@ public class ChatbotEthan implements Topic {
 		annoyed = botAnnoyed;
 		secretKeyword = "N/A";
 		response = "";
+		saidYesorNo = false;
+		annoyedCounter = 0;
+		
+		YES = "yes";
+		NO = "no";
 	}
 
 	public void talk(String response) {
-		ChatbotMain.print("Hey! So you want to talk about generic boring things huh? I love talking about that. So tell me something");
+		printMessage("You wanna talk about movies n stuff yea? So, " +ChatbotMain.chatbot.getUsername()+ " you like movies? Yes or no?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			while(!saidYesorNo) {
+				if(ChatbotMain.findKeyword(response, YES, 0) >= 0) {
+					
+				}	
+				printMessage(annoyed[annoyedCounter]);
+				annoyedCounter++;
+				
+			}
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
 				ChatbotMain.print("I can't even. I love pugs so much. Wow. You are so cool.");
 				response = ChatbotMain.getInput();
