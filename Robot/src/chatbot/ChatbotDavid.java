@@ -10,7 +10,7 @@ public class ChatbotDavid implements Topic {
 	private String confirmation;
 	
 	public ChatbotDavid() {
-		String[] temp = {""};
+		String[] temp = {"book"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		secretKeyword = "Harry Potter";
