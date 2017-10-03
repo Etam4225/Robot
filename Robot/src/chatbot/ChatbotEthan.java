@@ -6,22 +6,52 @@ public class ChatbotEthan implements Topic {
 	private String goodbyeKeyword;
 	private String secretKeyword;
 	private String response;
+	private String[] annoyed;
+	private boolean saidYesorNo;
+	private int annoyedCounter;
+	
+	private String YES;
+	private String NO;
 	
 	public ChatbotEthan() {
-		String[] temp = {"stuff", "things", "whatever", "nothing"};
+		String[] temp = {"movie", "Lord of the Rings", "watch"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "pug";
+		String[] botAnnoyed = {"Just say yes or no >:(","for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
+		annoyed = botAnnoyed;
+		secretKeyword = "N/A";
 		response = "";
+		saidYesorNo = false;
+		annoyedCounter = 0;
+		
+		YES = "yes";
+		NO = "no";
 	}
 
 	public void talk(String response) {
-		ChatbotMain.print("Hey! So you want to talk about generic boring things huh? I love talking about that. So tell me something");
+		printMessage("You wanna talk about movies n stuff yea? So, " +ChatbotMain.chatbot.getUsername()+ " you like movies? Yes or no?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			while(!saidYesorNo) {
+				if(ChatbotMain.findKeyword(response, YES, 0) >= 0) {
+					printMessage("Good to know "+ ChatbotMain.chatbot.getUsername() + " !");
+				}
+				while(annoyedCounter < 4) {
+					//or is it less than 3?
+					printMessage(annoyed[annoyedCounter]);
+					annoyedCounter++;
+				}
+				if(annoyedCounter == 3) {
+					printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
+					ChatbotMain.chatbot.startChatting();
+				}
+					
+				
+			}
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
 				ChatbotMain.print("I can't even. I love pugs so much. Wow. You are so cool.");
 				response = ChatbotMain.getInput();
+				//remove?
 			}else {
 				ChatbotMain.print("Yeah. That's pretty cool. But there are things I like even more. Tell me something else.");
 				response = ChatbotMain.getInput();
