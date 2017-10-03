@@ -20,24 +20,25 @@ public class ChatbotDavid implements Topic {
 	private int calmSarcasticIndex;
 	
 	public ChatbotDavid() {
-		String[] temp = {"book"};
+		String[] temp = {"books"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		secretKeyword = "Harry Potter";
 		response = "";
 		noCount = 0;
 		calmSarcasticIndex = 0;
+		confirmation = "Ok";
 	}
 	
 	public void talk(String response) {
 		ChatbotMain.print("Hey! So you like reading books? So do I! I have a game in mind, let's play!");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
-			if(ChatbotMain.findKeyword(response, confirmation, 0) >= 0) {
+			if(ChatbotMain.findKeyword(response, confirmation, 0) == 0) {
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
 						+ "Don't worry I'll give you hints. Here's your first one: ");
 				response = ChatbotMain.getInput();
-			}while(ChatbotMain.findKeyword(response, confirmation, 0) == -1) {
+			}while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
 				if(noCount < 4) {
 					calmSarcasticIndex = (int)(Math.random()*calmReply.length);
@@ -56,22 +57,12 @@ public class ChatbotDavid implements Topic {
 		ChatbotMain.chatbot.startChatting();
 		}
 	
-	
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
 			//IMPORTANT (on rubric) USE FINDKEYWORD OVER INDEX OF
 			if(ChatbotMain.findKeyword(response, keywords[i], 0) >= 0) {
 				return true;
 			}
-		}
-		return false;
-	}
-	public boolean sayingNo(String response) {
-		if(ChatbotMain.findKeyword(response, "no", 0) >= 0 ) {
-			return true;
-		}
-		if(ChatbotMain.findKeyword(response, "nah", 0) >= 0) {
-			return true;
 		}
 		return false;
 	}
