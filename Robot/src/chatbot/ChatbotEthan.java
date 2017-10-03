@@ -10,6 +10,7 @@ public class ChatbotEthan implements Topic {
 	private boolean saidYesorNo;
 	private int annoyedCounter;
 	private String previousInput;
+	private boolean firstConvo;
 	
 	private String YES;
 	private String NO;
@@ -24,6 +25,7 @@ public class ChatbotEthan implements Topic {
 		response = "";
 		saidYesorNo = false;
 		annoyedCounter = 0;
+		firstConvo = true;
 		
 		YES = "yes";
 		NO = "no";
@@ -34,10 +36,11 @@ public class ChatbotEthan implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			while(!saidYesorNo) {
-				if(previousInput.equals(response)) {
+				previousInput = response;
+				firstConvo = true;
+				if(previousInput.equals(response) && !firstConvo) {
 					printMessage("Ever thought of saying something unique bro?");
 				}
-				previousInput = response;
 				if(ChatbotMain.findKeyword(response, YES, 0) >= 0) {
 					printMessage("Good to know "+ ChatbotMain.chatbot.getUsername() + "!");
 					saidYesorNo = true;
@@ -49,7 +52,7 @@ public class ChatbotEthan implements Topic {
 				else {
 					printMessage(annoyed[annoyedCounter]);
 					response = ChatbotMain.getInput();
-					if(annoyedCounter == 3) {
+					if(annoyedCounter == 4) {
 						printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
 						ChatbotMain.chatbot.startChatting();
 					}
@@ -57,7 +60,7 @@ public class ChatbotEthan implements Topic {
 						annoyedCounter++;
 					}
 				}
-					
+				firstConvo = false;
 				
 			}
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
