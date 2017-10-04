@@ -36,16 +36,15 @@ public class ChatbotEthan implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			while(!saidYesorNo) {
-				previousInput = response;
-				firstConvo = true;
-				if(previousInput.equals(response) && !firstConvo) {
+				/*previousInput = response;
+				if(previousInput.equals(response)) {
 					printMessage("Ever thought of saying something unique bro?");
-				}
-				if(ChatbotMain.findKeyword(response, YES, 0) >= 0) {
+				} NOT WORKING YET*/
+				if(ChatbotMain.findKeyword(response, YES, 0) >= 0 && response.length() == 3) {
 					printMessage("Good to know "+ ChatbotMain.chatbot.getUsername() + "!");
 					saidYesorNo = true;
 				}
-				if(ChatbotMain.findKeyword(response, NO, 0) >= 0) {
+				if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
 					printMessage("Ah shucks "+ ChatbotMain.chatbot.getUsername() + "...still wanna play a game anyways?");
 					saidYesorNo = true;
 				}
@@ -60,7 +59,6 @@ public class ChatbotEthan implements Topic {
 						annoyedCounter++;
 					}
 				}
-				firstConvo = false;
 				
 			}
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
