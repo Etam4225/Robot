@@ -17,6 +17,8 @@ public class ChatbotEthan implements Topic {
 	private String[] movieArray;
 	private String chosenMovie;
 	private boolean guessedMovie;
+	private String[] lordHints;
+	private String[] harrypotterHints;
 	
 	private String[] movieQuestionArray;
 	
@@ -45,6 +47,10 @@ public class ChatbotEthan implements Topic {
 		movieArray = myMovieArray;
 		chosenMovie = "";
 		guessedMovie = false;
+		String[] mylordHints = {"hint1"};
+		lordHints = mylordHints;
+		String[] myharryHints = {"hint1"};
+		harrypotterHints = myharryHints;
 		
 		myRandNum = 0;
 		
@@ -122,6 +128,9 @@ public class ChatbotEthan implements Topic {
 	public void printMessage(String message) {
 		ChatbotMain.print(message);
 	}
+	/*public String getPreviousInput() {
+		return this.previousInput;
+	} dont need? */
 	public double createRandNum() {
 		myRandNum = Math.random();
 		return myRandNum;
