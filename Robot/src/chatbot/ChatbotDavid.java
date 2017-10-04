@@ -5,6 +5,7 @@ public class ChatbotDavid implements Topic {
 	private String[] keywords;
 	private String goodbyeKeyword;
 	private String harryPotterAnswer;
+	private String lotrAnswer;
 	private String response;
 	private String confirmation;
 	private int noCount;
@@ -32,6 +33,7 @@ public class ChatbotDavid implements Topic {
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		harryPotterAnswer = "Harry Potter";
+		lotrAnswer = "Lord of the Rings";
 		response = "";
 		noCount = 0;
 		calmSarcasticIndex = 0;
