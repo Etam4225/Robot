@@ -4,7 +4,7 @@ public class ChatbotDavid implements Topic {
 
 	private String[] keywords;
 	private String goodbyeKeyword;
-	private String secretKeyword;
+	private String harryPotterAnswer;
 	private String response;
 	private String confirmation;
 	private int noCount;
@@ -31,7 +31,7 @@ public class ChatbotDavid implements Topic {
 		String[] temp = {"books", "novels", "book", "reading"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
-		secretKeyword = "Harry Potter";
+		harryPotterAnswer = "Harry Potter";
 		response = "";
 		noCount = 0;
 		calmSarcasticIndex = 0;
@@ -49,7 +49,9 @@ public class ChatbotDavid implements Topic {
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
 						+ "Don't worry I'll give you hints. Here's your first one: " +  (hints[hintIndex]));
 				response = ChatbotMain.getInput();
-			}while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
+				numberOfGuesses--;
+			}
+			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
 				if(noCount < 4) {
 					calmSarcasticIndex = (int)(Math.random()*calmReply.length);
@@ -67,7 +69,6 @@ public class ChatbotDavid implements Topic {
 		ChatbotMain.print("Well, it was nice talking to you, " +ChatbotMain.chatbot.getUsername()+"!");
 		ChatbotMain.chatbot.startChatting();
 		}
-	
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
 			//IMPORTANT (on rubric) USE FINDKEYWORD OVER INDEX OF
@@ -77,6 +78,6 @@ public class ChatbotDavid implements Topic {
 		}
 		return false;
 	}
-
+	
 }
 
