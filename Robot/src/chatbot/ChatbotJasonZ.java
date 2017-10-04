@@ -1,5 +1,7 @@
 package chatbot;
 
+import java.util.Arrays;
+
 public class ChatbotJasonZ implements Topic {
 
 	private String[] keywords;
@@ -35,94 +37,83 @@ public class ChatbotJasonZ implements Topic {
 				ChatbotMain.print("Wow I love that song! isn't the title amazing?.");
 				response = ChatbotMain.getInput();
 			}
-			
+			checkRepitition(response);
 			if(ChatbotMain.findKeyword(response, "Yes", 0) >= 0)
 			{
 				double rand = Math.random();
 				if(rand <= .09)
 				{
-					sendResponse(response, 0);
+					sendResponse(response, 0, 1);
 					response = ChatbotMain.getInput();
-					countineTalkingAboutSubject(response, 0);
 				}
 				else 
 				{
 					if(rand <= .18)
 					{
-						sendResponse(response, 1);
+						sendResponse(response, 1, 1);
 						response = ChatbotMain.getInput();
-						countineTalkingAboutSubject(response, 1);
 					}
 					else 
 					{
 						if(rand <= .27)
 						{
-							sendResponse(response, 2);
+							sendResponse(response, 2, 1);
 							response = ChatbotMain.getInput();
-							countineTalkingAboutSubject(response, 2);
 						}
 						else 
 						{
 							if(rand <= .36)
 							{
-								sendResponse(response, 3);
+								sendResponse(response, 3, 1);
 								response = ChatbotMain.getInput();
-								countineTalkingAboutSubject(response, 3);
 							}
 							else 
 							{
 								if(rand <= .45)
 								{
-									sendResponse(response, 4);
+									sendResponse(response, 4, 2);
 									response = ChatbotMain.getInput();
-									countineTalkingAboutSubject(response, 4);
 								}
 								else 
 								{
 									if(rand <= .55)
 									{
-										sendResponse(response, 5);
+										sendResponse(response, 5, 2);
 										response = ChatbotMain.getInput();
-										countineTalkingAboutSubject(response, 5);
 									}
 									else 
 									{
 										if(rand <= .64)
 										{
-											sendResponse(response, 6);
+											sendResponse(response, 6, 2);
 											response = ChatbotMain.getInput();
-											countineTalkingAboutSubject(response, 6);
 										}
 										else 
 										{
 											if(rand <= .73)
 											{
-												sendResponse(response, 7);
+												sendResponse(response, 7, 2);
 												response = ChatbotMain.getInput();
-												countineTalkingAboutSubject(response, 7);
 											}
 											else 
 											{
 												if(rand <= .82)
 												{
-													sendResponse(response, 8);
+													sendResponse(response, 8, 2);
 													response = ChatbotMain.getInput();
-													countineTalkingAboutSubject(response, 8);
 												}
 												else 
 												{
 													if(rand <= .91)
 													{
-														sendResponse(response, 9);
+														sendResponse(response, 9, 2);
 														response = ChatbotMain.getInput();
-														countineTalkingAboutSubject(response, 9);
 													}
 													else 
 													{
 			
-															sendResponse(response, 10);
+															sendResponse(response, 10, 2);
 															response = ChatbotMain.getInput();
-															countineTalkingAboutSubject(response, 10);
 													}
 												}
 											}
@@ -137,10 +128,45 @@ public class ChatbotJasonZ implements Topic {
 			}
 			else 
 			{
-				ChatbotMain.print("Yeah. That's pretty cool. But there are things I like even more. Tell me something else.");
-				lResponse = response;
-				response = ChatbotMain.getInput();
+				
+				if(ChatbotMain.findKeyword(response, "no", 0) >= 0)
+				{
+					ChatbotMain.print("What song do you want to talk about " +ChatbotMain.chatbot.getUsername()+ "?");
+					lResponse = response;
+				}
+				else
+				{
+					int songindx = 0;
+					int whichArray = 0;
+					String songCheck = checkWhichSong(response);
+					if(songCheck == "")
+					{
+						exceptionRes();
+					}
+					try 
+					{
+						songindx = Integer.parseInt(songCheck.substring(1, 2));
+					}
+					catch(java.lang.StringIndexOutOfBoundsException r)
+					{
+						exceptionRes();
+					}
+					if(songindx == -1)
+					{
+						exceptionRes();
+					}
+					try
+					{
+						whichArray = Integer.parseInt(songCheck.substring(0,1));
+					}
+					catch(java.lang.StringIndexOutOfBoundsException e)
+					{
+						exceptionRes();
+					}
+					sendResponse(response,songindx, whichArray);
+				}
 			}
+			response = ChatbotMain.getInput();
 		}
 		//access variables from other classes
 		ChatbotMain.print("Well, it was nice talking to you, "+ChatbotMain.chatbot.getUsername()+"!");
@@ -148,44 +174,68 @@ public class ChatbotJasonZ implements Topic {
 		
 	}
 	
-	private void sendResponse(String response2, int songIndex) {
+	private void checkRepitition(String response2) {
 		if(lResponse.equals(response2))
 		{
 			ChatbotMain.print("I already responded to that.");
-		}
-		if(ChatbotMain.findKeyword(response2, "yes", 0) >= 0 )
-		{
-			if(checkIfInSong1(songIndex))
-			{
-				ChatbotMain.print("Wow! You know"+ songs[songIndex] +" is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
-			}
-			else 
-			{
-				ChatbotMain.print("Wow! You know in "+ songs[songIndex] +", the female choir is deeper, there are more solo strings, and some lower percussion from the bass drums.");
-				
-			}
+			ChatbotMain.getInput();
 		}
 		lResponse = response2;
 	}
 
-	private boolean checkIfInSong1(int songIndex) {
-		for(int i = 0; i< songs1.length; i++)
-		{
-			if(songs1[i].equals(songs[songIndex]))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void countineTalkingAboutSubject(String response, int songIndex) {
-		if(ChatbotMain.findKeyword(response, "yes", 0) > 0)
-		{
-			ChatbotMain.print("Mhm This topic bores me.");
-		}
+	private void exceptionRes() {
+		ChatbotMain.print("Not recognized.");
+		ChatbotMain.getInput();
 		
 	}
+
+	private void sendResponse(String response2, int songIndex, int check) {
+		if( check == 1)
+		{
+			ChatbotMain.print("Wow! You know"+ songs[songIndex] +" is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
+		}
+		else 
+		{
+			if(check == 2)
+			{
+				ChatbotMain.print("Wow! You know in "+ songs[songIndex] +", the female choir is deeper, there are more solo strings, and some lower percussion from the bass drums.");	
+			}
+			else 
+			{
+				ChatbotMain.print("I don't have that song programmed, or it isn't a song");
+			}
+		}
+	}
+
+	private String checkWhichSong(String resp) {
+		String locationOfSong = "";
+		int songIndx = -1;
+		for(int i = 0; i < songs.length; i++)
+		{
+			if(ChatbotMain.findKeyword(songs[i], resp, 0) >= 0)
+			{
+				songIndx = i; 
+			}
+		}
+		for(int i = 0; i< songs1.length; i++)
+		{
+			if(ChatbotMain.findKeyword(songs1[i], resp, 0) >= 0)
+			{
+				locationOfSong += 1; 
+				locationOfSong += songIndx; 
+			}
+		}
+		for(int i = 0; i<songs2.length; i++)
+		{
+			if(ChatbotMain.findKeyword(songs2[i], resp, 0) >= 0)
+			{
+				locationOfSong += 2; 
+				locationOfSong += songIndx;
+			}
+		}
+		return locationOfSong;
+	}
+
 
 	@Override
 	public boolean isTriggered(String response) {
