@@ -22,7 +22,7 @@ public class ChatbotDavid implements Topic {
 		 "Lightning scar",
 		 "7 book series but 8 movies",
 		 "Invlolves a game called Quidditch",
-		 "You're a wizard ______!"}
+		 "You're a wizard ______!"};
 	private int calmSarcasticIndex;
 	private int hintIndex;
 	private int numberOfGuesses;
@@ -45,8 +45,9 @@ public class ChatbotDavid implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, confirmation, 0) == 0) {
+				hintIndex = (int)(Math.random()*hints.length);
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
-						+ "Don't worry I'll give you hints. Here's your first one: ");
+						+ "Don't worry I'll give you hints. Here's your first one: hints[hintIndex]");
 				response = ChatbotMain.getInput();
 			}while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
