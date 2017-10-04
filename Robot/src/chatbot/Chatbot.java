@@ -36,7 +36,7 @@ public class Chatbot {
 		return david;
 	}
 	public void startChatting() {
-		ChatbotMain.print("Hi! I am an intelligent machine that can respond to your input. Tell me your name.");
+		ChatbotMain.print("Hi! I am an entertainment bot that talks about movies, books, music, and games! Whatddya wanna talk about?");
 		username = ChatbotMain.getInput();
 		while(chatting) {
 			ChatbotMain.print("What would you like to talk about?");
