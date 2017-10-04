@@ -50,13 +50,11 @@ public class ChatbotDavid implements Topic {
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
 						+ "Don't worry I'll give you hints. Here's your first one: " +  (hints[hintIndex]));
 				response = ChatbotMain.getInput();
-				numberOfGuesses--;
+			if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
 				hintIndex++;
-			while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
-				ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + "left. Try again! Here is your"
+				numberOfGuesses--;
+				ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
 						+ " next hint: " + (hints[hintIndex]));
-				numberOfGuesses--;
-				hintIndex++;
 			}
 			}
 			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
