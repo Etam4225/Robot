@@ -20,6 +20,7 @@ public class ChatbotEthan implements Topic {
 	private String[] lordHints;
 	private String[] harrypotterHints;
 	private boolean incorrectAnswer;
+	private int hintCounter;
 	
 	//private String[] movieQuestionArray; DONT NEED YET NOT IMPLEMENTED
 	
@@ -52,7 +53,8 @@ public class ChatbotEthan implements Topic {
 		lordHints = mylordHints;
 		String[] myharryHints = {"hint1"};
 		harrypotterHints = myharryHints;
-		incorrectAnswer = false;
+		incorrectAnswer = true;
+		hintCounter = 0;
 		
 		myRandNum = 0;
 		
@@ -114,7 +116,7 @@ public class ChatbotEthan implements Topic {
 						}
 					}
 				}
-				convoCount++;
+				//convoCount++;
 				
 			}
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
@@ -152,8 +154,19 @@ public class ChatbotEthan implements Topic {
 		}
 		printMessage(chosenMovie + " is the movie that I want you to guess");
 		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose!");
-		printMessage("Heres the first hint: " + lordHints[0]);
 		while(incorrectAnswer) {
+			if(hintCounter >= lordHints.length) {
+				//lose game
+			}
+			else {
+				printMessage("Heres the first hint: " + lordHints[hintCounter]);
+			}
+			response = ChatbotMain.getInput();
+			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
+				printMessage("HOLY SMOKES! YOU GUESSED THE MOVIE! SWEET");
+				incorrectAnswer = false;
+			}
+			hintCounter++;
 			//keep getting responses -> implement strike system?
 		}
 	}
