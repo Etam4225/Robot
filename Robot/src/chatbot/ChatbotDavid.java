@@ -11,7 +11,8 @@ public class ChatbotDavid implements Topic {
 	private int noCount;
 	private static String[] calmReply =
 		{"Why not? Trust me, it will be an easy game. Let's play!",
-				"We will get nowhere if you keep saying No."
+				"We will get nowhere if you keep saying No.",
+					"Please just say Ok"
 		};
 	private static String[] sarcasticReply =
 		{"This is really frustrating for me. Clearly I am talking to a poorly made chatbot",
@@ -43,7 +44,7 @@ public class ChatbotDavid implements Topic {
 	}
 	
 	public void talk(String response) {
-		ChatbotMain.print("Hey! So you like reading books? So do I! I have a game in mind, let's play!");
+		ChatbotMain.print("Hey! So you like reading books? So do I! I have a game in mind, let's play! Just type Ok.");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, confirmation, 0) == 0) {
@@ -55,11 +56,12 @@ public class ChatbotDavid implements Topic {
 				numberOfGuesses--;
 				ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
 						+ " next hint: " + (hints[hintIndex]));
+				response = ChatbotMain.getInput();
 			}
 			}
 			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
-				if(noCount < 4) {
+				if(noCount < 5) {
 					calmSarcasticIndex = (int)(Math.random()*calmReply.length);
 					ChatbotMain.print(calmReply[calmSarcasticIndex]);
 					response = ChatbotMain.getInput();
