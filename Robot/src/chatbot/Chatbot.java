@@ -36,7 +36,7 @@ public class Chatbot {
 		return david;
 	}
 	public void startChatting() {
-		ChatbotMain.print("Hi! I am an entertainment bot that talks about movies, books, music, and games! Whatddya wanna talk about?");
+		ChatbotMain.print("Hi! I am an entertainment bot that talks about movies, books, music, and games! How about you tell me your name?");
 		username = ChatbotMain.getInput();
 		while(chatting) {
 			ChatbotMain.print("What would you like to talk about?");
@@ -44,7 +44,7 @@ public class Chatbot {
 			if(ethan.isTriggered(response)) {
 				chatting = false;//exits the while loop
 				//IMPORTANT TO KNOW YOU GET GRADED FOR THIS
-				ethan.talk(response);
+				ethan.talk(response); 
 				//isTriggered for every topic.
 			}else if(jasony.isTriggered(response)) {
 				chatting = false;
