@@ -16,6 +16,7 @@ public class ChatbotEthan implements Topic {
 
 	private String[] movieArray;
 	private String chosenMovie;
+	private boolean guessedMovie;
 	
 	private String[] movieQuestionArray;
 	
@@ -43,6 +44,7 @@ public class ChatbotEthan implements Topic {
 		String[] myMovieArray = {"Lord of the Rings"};
 		movieArray = myMovieArray;
 		chosenMovie = "";
+		guessedMovie = false;
 		
 		myRandNum = 0;
 		
@@ -128,7 +130,8 @@ public class ChatbotEthan implements Topic {
 		if(myRandNum < 1) {
 			chosenMovie = movieArray[0];
 		}
-		printMessage(chosenMovie + " is the movie that I want you to guess");
+		//printMessage(chosenMovie + " is the movie that I want you to guess"); movie is chosen *works*
+		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose!");
 	}
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
