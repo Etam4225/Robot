@@ -11,7 +11,7 @@ public class ChatbotJasonZ implements Topic {
 	private String[] songs;
 	private String[] songs1;
 	private String[] songs2;
-	private String lResponse;
+	private static String lResponse;
 	
 	public ChatbotJasonZ() {
 		String[] Songs = {"The Shadow of the Past","A Knife in the Dark","Flight to the Ford","Many Meeting","The Council of Elrond","The Ring goes South","The Bridge of Khazad Dum","Lothlorien", "Amon Hend","The Breaking of the Fellowship","May it be"};
@@ -25,7 +25,7 @@ public class ChatbotJasonZ implements Topic {
 		goodbyeKeyword = "bye";
 		secretKeyword = "Concerning Hobbits";
 		response = "";
-		lResponse = "";
+		lResponse = " "; 
 	}
 
 	@Override
@@ -132,7 +132,6 @@ public class ChatbotJasonZ implements Topic {
 				if(ChatbotMain.findKeyword(response, "no", 0) >= 0)
 				{
 					ChatbotMain.print("What song do you want to talk about " +ChatbotMain.chatbot.getUsername()+ "?");
-					lResponse = response;
 				}
 				else
 				{
@@ -175,7 +174,7 @@ public class ChatbotJasonZ implements Topic {
 	}
 	
 	private void checkRepitition(String response2) {
-		if(lResponse.equals(response2))
+		if(ChatbotMain.findKeyword(lResponse, response2, 0) >= 0 )
 		{
 			ChatbotMain.print("I already responded to that.");
 			ChatbotMain.getInput();
