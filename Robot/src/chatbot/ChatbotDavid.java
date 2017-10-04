@@ -19,9 +19,9 @@ public class ChatbotDavid implements Topic {
 					"Hey look at me! I'm a guy with a clearly limited vocabulary who's whole knowledge of English can fit in a single Tweet."
 		};
 	private static String[] hints = 
-		{"The boy who lived",
+		{"7 book series but 8 movies",
+		 "The boy who lived",
 		 "Lightning scar",
-		 "7 book series but 8 movies",
 		 "Involves a game called Quidditch",
 		 "You're a wizard ______!"};
 	private int calmSarcasticIndex;
@@ -47,11 +47,11 @@ public class ChatbotDavid implements Topic {
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, confirmation, 0) == 0) {
-				hintIndex = (int)(Math.random()*hints.length);
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
 						+ "Don't worry I'll give you hints. Here's your first one: " +  (hints[hintIndex]));
 				response = ChatbotMain.getInput();
 				numberOfGuesses--;
+				hintIndex++;
 			}
 			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
