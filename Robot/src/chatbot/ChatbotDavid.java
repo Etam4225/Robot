@@ -52,6 +52,12 @@ public class ChatbotDavid implements Topic {
 				response = ChatbotMain.getInput();
 				numberOfGuesses--;
 				hintIndex++;
+			while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
+				ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + "left. Try again! Here is your"
+						+ " next hint: " + (hints[hintIndex]));
+				numberOfGuesses--;
+				hintIndex++;
+			}
 			}
 			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
