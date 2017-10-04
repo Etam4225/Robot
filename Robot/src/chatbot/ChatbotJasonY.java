@@ -2,6 +2,7 @@ package chatbot;
 
 public class ChatbotJasonY implements Topic{
 	private String[] keywords;
+	private String[] insultWords;
 	private String goodbyeKeyword;
 	private String secretKeyword;
 	private String response;
@@ -15,13 +16,23 @@ public class ChatbotJasonY implements Topic{
 		secretKeyword = "Grand Chase";
 		response = "";
 		happyCount = 0;
+		String[] insult = {"sucks", "terrible", "trash", "horrific", "disgusting"};
+		insultWords = insult;
 	}
 	
 	public void talk(String response) {
 		ChatbotMain.print("Games, huh? They have the power to turn one's life into a couch potato or a shut-in. Pretty scary stuff but if"
-				+ "played in moderation one can prevent that. But anyways what do you want to talk about.");
+				+ "played with moderation, one can prevent that. But anyways what games do you want to talk about?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= -1) {
+			for(int i = 0; i < insultWords.length; i++) {
+				if (ChatbotMain.findKeyword(response, insultWords[i], 0) >= 0) {
+					ChatbotMain.print("Nope, take that back.");
+					happyCount--;
+					response = ChatbotMain.getInput();
+				}
+			}
+			
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
 				ChatbotMain.print("Wow! That's my favorite game! I'm surprised you know that game. Those who know the game call it a rip "
 						+ "off of another similar game called Elsword even though it was released in 2003 and Elsword was released in 2007."
@@ -37,28 +48,39 @@ public class ChatbotJasonY implements Topic{
 			
 			if(ChatbotMain.findKeyword(response, keywords[0], 0) >= 0) {
 				ChatbotMain.print("Final Fantasy has a long history. From the first Final Fantasy, which was released in 1987, to Final "
-						+ "Fantasy XV, which was released in 2016. The franchise was made from a company called "\n" Each Final Fantasy game "
-						+ "has its own unqiue plot and characters. They are mostly about saving the world from some kind of peril."
-						+ "The franchise is very popular that it even had its own anime adaption and one of the Final Fantasy characters "
-						+ "named \"Cloud\" was released in the game \"Super Smash Brothers\".");
+						+ "Fantasy XV, which was released in 2016. The franchise was made from a company called \"Square Einx\". Each Final "
+						+ "Fantasy game has its own unqiue plot and characters. They are mostly about saving the world from some kind of "
+						+ "peril. The franchise is very popular that it even had its own anime adaption and one of the Final Fantasy "
+						+ "characters named \"Cloud\" was released in the game \"Super Smash Brothers\".");
 				response = ChatbotMain.getInput();
 			}
 			
 			if(ChatbotMain.findKeyword(response,keywords[1], 0) >= 0) {
-				ChatbotMain.print("World of Warcraft or sometimes abbreviated as \"WOW\" is a massively multiplayer online role playing game"
-						+ " also abbreviated as \"MMORPG\". This game was released in 2004 by a company called \"Blizzard\". In the game,"
-						+ " the player goes around killing monster for drops and armor. The materials dropped can be used to ")
+				ChatbotMain.print("World of Warcraft or sometimes abbreviated as \"WOW\" is a massively multiplayer online role playing game "
+						+ "also abbreviated as \"MMORPG\". This game was released in 2004 by a company called \"Blizzard\". In the game, "
+						+ "the player goes around killing monster for drops and armor. The materials dropped can be used to create equips "
+						+ "and other things. Apparently there's a common misconpetion which is World of Warcraft is the MMORPG which is not "
+						+ "the case.");
+				response = ChatbotMain.getInput();
+			}
+			
+			if(ChatbotMain.findKeyword(response, keywords[2], 0) >= 0) {
+				ChatbotMain.print("Overwatch is a game made by a company called \"Blizzard\". There is a lot of debate whether it is a MOBA "
+						+ "(Multiplayer Online Battle Arena) or a FPS(First Person Shooter) game. Due to the debate, Blizzard has called it "
+						+ "a \"team-based multiplayer online first-person shooter\". Anyways the game is very much like the MOBA games where "
+						+ "the player picks a hero before her or she enters the arena. The player is in a team with 5 players including the "
+						+ "player himslef or herself. The team is up against another team of 5. There are different game modes and each mode "
+						+ "has a different objective and playstyle to it. For instance, ");
 			}
 			ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
-			response = ChatbotMain.getInput();
-		} 
+			response = ChatbotMain.getInput(); 
+		}  
 		
 		if (happyCount > -2) {
-			ChatbotMain.print("Well, I hate talking to you, " + ChatbotMain.chatbot.getUsername().toUpperCase() + "! You're a ****ing ***hole! "
-					+ "WORSE PERSON I'VE EVER MEET!" );
+			ChatbotMain.print("Well, I hate talking to you, " + ChatbotMain.chatbot.getUsername().toUpperCase() + "! WORSE PERSON I'VE EVER MEET!" );
 			ChatbotMain.chatbot.startChatting();
 		}
-		
+		 
 		if (happyCount == -2) {
 			ChatbotMain.print("Well, it was *pause* nice talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're a mean person." );
 			ChatbotMain.chatbot.startChatting();
@@ -71,7 +93,7 @@ public class ChatbotJasonY implements Topic{
 		
 		if (happyCount == 0) {
 			ChatbotMain.print("Well, it was okay talking to you, " + ChatbotMain.chatbot.getUsername() + "! You're a decent person." );
-			ChatbotMain.chatbot.startChatting();w
+			ChatbotMain.chatbot.startChatting();
 		}
 		
 		if (happyCount == 1) {
