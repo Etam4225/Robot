@@ -17,10 +17,17 @@ public class ChatbotDavid implements Topic {
 				"You get off on this don't you?",
 					"Hey look at me! I'm a guy with a clearly limited vocabulary who's whole knowledge of English can fit in a single Tweet."
 		};
+	private static String[] hints = 
+		{"The boy who lived",
+		 "Lightning scar",
+		 "7 book series but 8 movies",
+		 "Invlolves a game called Quidditch",
+		 "You're a wizard ______!"}
 	private int calmSarcasticIndex;
+	private int hintIndex;
 	
 	public ChatbotDavid() {
-		String[] temp = {"books"};
+		String[] temp = {"books", "novels", "book", "reading"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		secretKeyword = "Harry Potter";
@@ -28,6 +35,7 @@ public class ChatbotDavid implements Topic {
 		noCount = 0;
 		calmSarcasticIndex = 0;
 		confirmation = "Ok";
+		hintIndex = 0;
 	}
 	
 	public void talk(String response) {
