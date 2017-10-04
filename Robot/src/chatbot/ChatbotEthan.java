@@ -11,16 +11,17 @@ public class ChatbotEthan implements Topic {
 	private boolean saidYesorNo;
 	private int annoyedCounter;
 	
-	private String previousInput;
-	private int convoCount;
+	//private String previousInput; unused fields
+	//private int convoCount;
 
 	private String[] movieArray;
 	private String chosenMovie;
 	private boolean guessedMovie;
 	private String[] lordHints;
 	private String[] harrypotterHints;
+	private boolean incorrectAnswer;
 	
-	private String[] movieQuestionArray;
+	//private String[] movieQuestionArray; DONT NEED YET NOT IMPLEMENTED
 	
 	private double myRandNum;
 	
@@ -41,16 +42,17 @@ public class ChatbotEthan implements Topic {
 		
 		secretKeyword = "N/A";
 		response = "";
-		convoCount = 0; //dupe responses doesnt work yet
+		//convoCount = 0; dupe responses doesnt work yet
 		
 		String[] myMovieArray = {"Lord of the Rings"};
 		movieArray = myMovieArray;
 		chosenMovie = "";
 		guessedMovie = false;
-		String[] mylordHints = {"hint1"};
+		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called "};
 		lordHints = mylordHints;
 		String[] myharryHints = {"hint1"};
 		harrypotterHints = myharryHints;
+		incorrectAnswer = false;
 		
 		myRandNum = 0;
 		
@@ -81,6 +83,9 @@ public class ChatbotEthan implements Topic {
 					else {
 						
 						//exit and ask diff question etc.?
+						//ask for his favorite movie? have an array of movies chatbot "watched"?
+						//if its something youve watched and it has a book related to it and link to book?
+						//TO DO LATER FINISH GAME FIRST.......
 					}
 				}
 				if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
@@ -130,17 +135,27 @@ public class ChatbotEthan implements Topic {
 	}
 	/*public String getPreviousInput() {
 		return this.previousInput;
-	} dont need? */
+	}*/
+	public String getChosenMovie() {
+		return null;
+	}
 	public double createRandNum() {
 		myRandNum = Math.random();
 		return myRandNum;
 	}
 	public void initiateGame() {
-		if(myRandNum < 1) {
+		if(myRandNum < .5) {
 			chosenMovie = movieArray[0];
 		}
-		//printMessage(chosenMovie + " is the movie that I want you to guess"); movie is chosen *works*
+		else {
+			chosenMovie = movieArray[1];
+		}
+		printMessage(chosenMovie + " is the movie that I want you to guess");
 		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose!");
+		printMessage("Heres the first hint: " + lordHints[0]);
+		while(incorrectAnswer) {
+			//keep getting responses -> implement strike system?
+		}
 	}
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
