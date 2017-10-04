@@ -25,6 +25,7 @@ public class ChatbotDavid implements Topic {
 		 "You're a wizard ______!"}
 	private int calmSarcasticIndex;
 	private int hintIndex;
+	private int numberOfGuesses;
 	
 	public ChatbotDavid() {
 		String[] temp = {"books", "novels", "book", "reading"};
@@ -36,6 +37,7 @@ public class ChatbotDavid implements Topic {
 		calmSarcasticIndex = 0;
 		confirmation = "Ok";
 		hintIndex = 0;
+		numberOfGuesses = 5;
 	}
 	
 	public void talk(String response) {
