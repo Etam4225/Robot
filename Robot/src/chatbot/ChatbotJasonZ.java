@@ -39,7 +39,7 @@ public class ChatbotJasonZ implements Topic {
 			if(ChatbotMain.findKeyword(response, "Yes", 0) >= 0)
 			{
 				double rand = Math.random();
-				if(rand <= (1/11))
+				if(rand <= .09)
 				{
 					sendResponse(response, 0);
 					response = ChatbotMain.getInput();
@@ -47,7 +47,7 @@ public class ChatbotJasonZ implements Topic {
 				}
 				else 
 				{
-					if(rand <= 2/11)
+					if(rand <= .18)
 					{
 						sendResponse(response, 1);
 						response = ChatbotMain.getInput();
@@ -55,7 +55,7 @@ public class ChatbotJasonZ implements Topic {
 					}
 					else 
 					{
-						if(rand <= 3/11)
+						if(rand <= .27)
 						{
 							sendResponse(response, 2);
 							response = ChatbotMain.getInput();
@@ -63,7 +63,7 @@ public class ChatbotJasonZ implements Topic {
 						}
 						else 
 						{
-							if(rand <= 4/11)
+							if(rand <= .36)
 							{
 								sendResponse(response, 3);
 								response = ChatbotMain.getInput();
@@ -71,7 +71,7 @@ public class ChatbotJasonZ implements Topic {
 							}
 							else 
 							{
-								if(rand <= 5/11)
+								if(rand <= .45)
 								{
 									sendResponse(response, 4);
 									response = ChatbotMain.getInput();
@@ -79,7 +79,7 @@ public class ChatbotJasonZ implements Topic {
 								}
 								else 
 								{
-									if(rand <= 6/11)
+									if(rand <= .55)
 									{
 										sendResponse(response, 5);
 										response = ChatbotMain.getInput();
@@ -87,7 +87,7 @@ public class ChatbotJasonZ implements Topic {
 									}
 									else 
 									{
-										if(rand <= 7/11)
+										if(rand <= .64)
 										{
 											sendResponse(response, 6);
 											response = ChatbotMain.getInput();
@@ -95,7 +95,7 @@ public class ChatbotJasonZ implements Topic {
 										}
 										else 
 										{
-											if(rand <= 8/11)
+											if(rand <= .73)
 											{
 												sendResponse(response, 7);
 												response = ChatbotMain.getInput();
@@ -103,7 +103,7 @@ public class ChatbotJasonZ implements Topic {
 											}
 											else 
 											{
-												if(rand <= 9/11)
+												if(rand <= .82)
 												{
 													sendResponse(response, 8);
 													response = ChatbotMain.getInput();
@@ -111,7 +111,7 @@ public class ChatbotJasonZ implements Topic {
 												}
 												else 
 												{
-													if(rand <= 10/11)
+													if(rand <= .91)
 													{
 														sendResponse(response, 9);
 														response = ChatbotMain.getInput();
@@ -153,21 +153,30 @@ public class ChatbotJasonZ implements Topic {
 		{
 			ChatbotMain.print("I already responded to that.");
 		}
-		for(int i = 0; i< songs1.length; i++)
+		if(ChatbotMain.findKeyword(response2, "yes", 0) >= 0 )
 		{
-			if(songs1[i].equals(response2))
+			if(checkIfInSong1(songIndex))
 			{
 				ChatbotMain.print("Wow! You know"+ songs[songIndex] +" is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
 			}
-		}
-		for(int i1 = 0; i1< songs2.length; i1++ )
-		{
-			if(songs2[i1].equals(response2))
+			else 
 			{
 				ChatbotMain.print("Wow! You know in "+ songs[songIndex] +", the female choir is deeper, there are more solo strings, and some lower percussion from the bass drums.");
+				
 			}
 		}
 		lResponse = response2;
+	}
+
+	private boolean checkIfInSong1(int songIndex) {
+		for(int i = 0; i< songs1.length; i++)
+		{
+			if(songs1[i].equals(songs[songIndex]))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void countineTalkingAboutSubject(String response, int songIndex) {
