@@ -63,6 +63,11 @@ public class ChatbotDavid implements Topic {
 					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
 						+ " next hint: " + (hints[hintIndex]));
 					 response = ChatbotMain.getInput();	 	
+					 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
+					 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it in " + numberOfGuesses + " "
+					 				+ "guesses! That's pretty impressive. Do you want to know about the movie version? "
+					 				+ "Or do you want to play again with a different book?");
+						}
 				}
 			}
 			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
