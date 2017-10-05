@@ -11,8 +11,8 @@ public class ChatbotEthan implements Topic {
 	private boolean saidYesorNo;
 	private int annoyedCounter;
 	
-	//private String previousInput; unused fields
-	//private int convoCount;
+	private String previousInput;
+	private int convoCount;
 
 	private String[] movieArray;
 	private String chosenMovie;
@@ -44,15 +44,16 @@ public class ChatbotEthan implements Topic {
 		
 		secretKeyword = "N/A";
 		response = "";
-		//convoCount = 0; dupe responses doesnt work yet
+		
+		convoCount = 0; 
 		
 		String[] myMovieArray = {"Lord of the Rings" ,"Harry Potter"};
 		movieArray = myMovieArray;
 		chosenMovie = "";
 		guessedMovie = false;
-		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called Frodo Baggins"};
+		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called Frodo Baggins", "There is a ring involved *wink wink*"};
 		lordHints = mylordHints;
-		String[] myharryHints = {"hint1", "hint2"};
+		String[] myharryHints = { "Ever heard of the term Wingardium Leviosa?", "One word: Hogwarts", "Okay ever heard of someone called Harry?"};
 		harrypotterHints = myharryHints;
 		incorrectAnswer = true;
 		hintCounter = 0;
@@ -70,12 +71,9 @@ public class ChatbotEthan implements Topic {
 		printMessage("You wanna talk about movies n stuff yea? So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies? Yes or no?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			checkDupeResponse();
 			while(!saidYesorNo) {
-				/*previousInput = response;
-				if(previousInput.equals(response) && convoCount >= 1) {
-					printMessage("Ever thought of saying something unique?");
-					sameInput = true;
-				}*/
+				checkDupeResponse();
 				if(ChatbotMain.findKeyword(response, YES, 0) >= 0 && response.length() == 3) {
 					printMessage("Good to know "+ ChatbotMain.chatbot.getUsername() + "! So do you want to play a game called Guess the Movie? Say start and we can start!");
 					saidYesorNo = true;
@@ -93,6 +91,7 @@ public class ChatbotEthan implements Topic {
 					}
 				}
 				if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
+					checkDupeResponse();
 					printMessage("Ah shucks "+ ChatbotMain.chatbot.getUsername() + "...still wanna play a game anyways? If you say start ill start a game!");
 					saidYesorNo = true;
 					response = ChatbotMain.getInput();
@@ -106,6 +105,7 @@ public class ChatbotEthan implements Topic {
 				}
 				else {
 					if(!saidYesorNo) {
+						checkDupeResponse();
 						printMessage(annoyed[annoyedCounter]);
 						response = ChatbotMain.getInput();
 						if(annoyedCounter == 4) {
@@ -118,7 +118,6 @@ public class ChatbotEthan implements Topic {
 						}
 					}
 				}
-				//convoCount++;
 				
 			}
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
@@ -129,7 +128,6 @@ public class ChatbotEthan implements Topic {
 				response = ChatbotMain.getInput();
 			
 		}
-		//access variables from other classes
 		ChatbotMain.print("Well, it was nice talking to you, " +ChatbotMain.chatbot.getUsername()+"!");
 		ChatbotMain.chatbot.startChatting();
 	
@@ -137,11 +135,12 @@ public class ChatbotEthan implements Topic {
 	public void printMessage(String message) {
 		ChatbotMain.print(message);
 	}
-	/*public String getPreviousInput() {
-		return this.previousInput;
-	}*/
-	public String getChosenMovie() {
-		return null;
+	public void checkDupeResponse() {
+		previousInput = response;
+		if(previousInput.equals(response) && convoCount > 0) {
+			printMessage("Ever thought of saying something unique?");
+		}
+		convoCount++;
 	}
 	public void initiateGame() {
 		myRandNum = Math.random();
@@ -151,7 +150,7 @@ public class ChatbotEthan implements Topic {
 		else {
 			chosenMovie = movieArray[1];
 		}
-		printMessage(chosenMovie + " is the movie that I want you to guess");
+		//printMessage(chosenMovie + " is the movie that I want you to guess") CHOSEN MOVIE
 		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose! The rules are simple. Guess the movie and you win...3 strikes and you lose.");
 		incorrectAnswer = true;
 		while(incorrectAnswer) {
@@ -163,6 +162,9 @@ public class ChatbotEthan implements Topic {
 					strikeCounter = 0;
 					initiateGame();
 					//start the guessing game again
+				}else {
+					//exit function
+					//do stuff
 				}
 				incorrectAnswer = false;
 			}
