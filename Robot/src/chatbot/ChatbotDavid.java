@@ -69,8 +69,8 @@ public class ChatbotDavid implements Topic {
 						+ " next hint: " + (hints[hintIndex]));
 					 response = ChatbotMain.getInput();	 	
 					 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
-					 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it in " + numberOfGuesses + " "
-					 				+ "guesses! That's pretty impressive. Do you want to know about the movie version? "
+					 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
+					 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
 					 				+ "Or do you want to play again with a different book?");
 						}
 				}

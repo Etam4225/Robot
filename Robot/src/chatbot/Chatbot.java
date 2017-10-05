@@ -39,7 +39,7 @@ public class Chatbot {
 		ChatbotMain.print("Hi! I am an entertainment bot that talks about movies, books, music, and games! How about you tell me your name?");
 		username = ChatbotMain.getInput();
 		while(chatting) {
-			ChatbotMain.print("What would you like to talk about?");
+			ChatbotMain.print("What would you like to talk about " + ChatbotMain.chatbot.getUsername() + "?");
 			String response = ChatbotMain.getInput();
 			if(ethan.isTriggered(response)) {
 				chatting = false;//exits the while loop
