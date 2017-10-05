@@ -15,7 +15,7 @@ public class ChatbotJasonY implements Topic{
 		secretKeyword = "Grand Chase";
 		response = "";
 		happyCount = 0;
-		String[] insult = {"sucks", "terrible", "trash", "horrific", "disgusting"};
+		String[] insult = {"suck", "terrible", "trash", "horrific", "disgusting", "filth"};
 		insultWords = insult;
 	}
 	
@@ -29,6 +29,7 @@ public class ChatbotJasonY implements Topic{
 					ChatbotMain.print("Nope, take that back.");
 					happyCount--;
 					response = ChatbotMain.getInput();
+					i = 0;
 				}
 			}
 			
