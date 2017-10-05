@@ -33,7 +33,7 @@ public class ChatbotEthan implements Topic {
 	private String START;
 	
 	public ChatbotEthan() {
-		String[] temp = {"movie"};
+		String[] temp = {"movie", "movies"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		
@@ -65,15 +65,17 @@ public class ChatbotEthan implements Topic {
 		YES = "yes";
 		NO = "no";
 		START = "start";
+		
+		//chatbotmain.chatbot.getMYTOPIC.isTriggered(response);
 	}
 
 	public void talk(String response) {
 		printMessage("You wanna talk about movies n stuff yea? So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies? Yes or no?");
 		response = ChatbotMain.getInput();
+		previousInput = response;
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			checkDupeResponse();
 			while(!saidYesorNo) {
-				checkDupeResponse();
 				if(ChatbotMain.findKeyword(response, YES, 0) >= 0 && response.length() == 3) {
 					printMessage("Good to know "+ ChatbotMain.chatbot.getUsername() + "! So do you want to play a game called Guess the Movie? Say start and we can start!");
 					saidYesorNo = true;
@@ -87,7 +89,7 @@ public class ChatbotEthan implements Topic {
 						//exit and ask diff question etc.?
 						//ask for his favorite movie? have an array of movies chatbot "watched"?
 						//if its something youve watched and it has a book related to it and link to book?
-						//TO DO LATER FINISH GAME FIRST.......
+						//GAME ALMOST COMPLETE
 					}
 				}
 				if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
@@ -112,6 +114,7 @@ public class ChatbotEthan implements Topic {
 							printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
 							annoyedCounter = 0;
 							ChatbotMain.chatbot.startChatting();
+							//need to fix / link
 						}
 						else {
 							annoyedCounter++;
@@ -136,7 +139,6 @@ public class ChatbotEthan implements Topic {
 		ChatbotMain.print(message);
 	}
 	public void checkDupeResponse() {
-		previousInput = response;
 		if(previousInput.equals(response) && convoCount > 0) {
 			printMessage("Ever thought of saying something unique?");
 		}
