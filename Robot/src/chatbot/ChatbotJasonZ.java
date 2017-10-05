@@ -30,142 +30,19 @@ public class ChatbotJasonZ implements Topic {
 
 	@Override
 	public void talk(String response) {
-		ChatbotMain.print("Hey! So you want to talk about songs from the Fellowship of the Ring? How about a random song?");
+		if(response != null)
+		{
+			ChatbotMain.print("Hey! So you want to talk about songs from the Fellowship of the Ring? How about a random song?");
+		}
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
 				ChatbotMain.print("Wow I love that song! isn't the title amazing?.");
 				response = ChatbotMain.getInput();
 			}
-			checkRepitition(response);
-			if(ChatbotMain.findKeyword(response, "Yes", 0) >= 0)
-			{
-				double rand = Math.random();
-				if(rand <= .09)
-				{
-					sendResponse(response, 0, 1);
-					response = ChatbotMain.getInput();
-				}
-				else 
-				{
-					if(rand <= .18)
-					{
-						sendResponse(response, 1, 1);
-						response = ChatbotMain.getInput();
-					}
-					else 
-					{
-						if(rand <= .27)
-						{
-							sendResponse(response, 2, 1);
-							response = ChatbotMain.getInput();
-						}
-						else 
-						{
-							if(rand <= .36)
-							{
-								sendResponse(response, 3, 1);
-								response = ChatbotMain.getInput();
-							}
-							else 
-							{
-								if(rand <= .45)
-								{
-									sendResponse(response, 4, 2);
-									response = ChatbotMain.getInput();
-								}
-								else 
-								{
-									if(rand <= .55)
-									{
-										sendResponse(response, 5, 2);
-										response = ChatbotMain.getInput();
-									}
-									else 
-									{
-										if(rand <= .64)
-										{
-											sendResponse(response, 6, 2);
-											response = ChatbotMain.getInput();
-										}
-										else 
-										{
-											if(rand <= .73)
-											{
-												sendResponse(response, 7, 2);
-												response = ChatbotMain.getInput();
-											}
-											else 
-											{
-												if(rand <= .82)
-												{
-													sendResponse(response, 8, 2);
-													response = ChatbotMain.getInput();
-												}
-												else 
-												{
-													if(rand <= .91)
-													{
-														sendResponse(response, 9, 2);
-														response = ChatbotMain.getInput();
-													}
-													else 
-													{
 			
-															sendResponse(response, 10, 2);
-															response = ChatbotMain.getInput();
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					
-				}
-			}
-			else 
-			{
-				
-				if(ChatbotMain.findKeyword(response, "no", 0) >= 0)
-				{
-					ChatbotMain.print("What song do you want to talk about " +ChatbotMain.chatbot.getUsername()+ "?");
-				}
-				else
-				{
-					int songindx = 0;
-					int whichArray = 0;
-					String songCheck = checkWhichSong(response);
-					if(songCheck == "")
-					{
-						exceptionRes();
-					}
-					try 
-					{
-						songindx = Integer.parseInt(songCheck.substring(1, 2));
-					}
-					catch(java.lang.StringIndexOutOfBoundsException r)
-					{
-						exceptionRes();
-					}
-					if(songindx == -1)
-					{
-						exceptionRes();
-					}
-					try
-					{
-						whichArray = Integer.parseInt(songCheck.substring(0,1));
-					}
-					catch(java.lang.StringIndexOutOfBoundsException e)
-					{
-						exceptionRes();
-					}
-					sendResponse(response,songindx, whichArray);
-				}
-			}
-			response = ChatbotMain.getInput();
+			checkRepitition(response);
+			chooseResponse(response);
 		}
 		//access variables from other classes
 		ChatbotMain.print("Well, it was nice talking to you, "+ChatbotMain.chatbot.getUsername()+"!");
@@ -173,18 +50,142 @@ public class ChatbotJasonZ implements Topic {
 		
 	}
 	
+	private void chooseResponse(String response) {
+		if(ChatbotMain.findKeyword(response, "Yes", 0) >= 0)
+		{
+			double rand = Math.random();
+			if(rand <= .09)
+			{
+				sendResponse(response, 0, 1);
+			}
+			else 
+			{
+				if(rand <= .18)
+				{
+					sendResponse(response, 1, 1);
+				}
+				else 
+				{
+					if(rand <= .27)
+					{
+						sendResponse(response, 2, 1);
+					}
+					else 
+					{
+						if(rand <= .36)
+						{
+							sendResponse(response, 3, 1);
+						}
+						else 
+						{
+							if(rand <= .45)
+							{
+								sendResponse(response, 4, 2);
+							}
+							else 
+							{
+								if(rand <= .55)
+								{
+									sendResponse(response, 5, 2);
+								}
+								else 
+								{
+									if(rand <= .64)
+									{
+										sendResponse(response, 6, 2);
+									}
+									else 
+									{
+										if(rand <= .73)
+										{
+											sendResponse(response, 7, 2);
+										}
+										else 
+										{
+											if(rand <= .82)
+											{
+												sendResponse(response, 8, 2);
+											}
+											else 
+											{
+												if(rand <= .91)
+												{
+													sendResponse(response, 9, 2);
+												}
+												else 
+												{
+		
+														sendResponse(response, 10, 2);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			}
+		}
+		else 
+		{
+			
+			if(ChatbotMain.findKeyword(response, "no", 0) >= 0)
+			{
+				ChatbotMain.print("What song do you want to talk about " +ChatbotMain.chatbot.getUsername()+ "?");
+			}
+			else
+			{
+				int songindx = 0;
+				int whichArray = 0;
+				String songCheck = checkWhichSong(response);
+				
+				if(songCheck != "")
+				{
+					try 
+					{
+						songindx = Integer.parseInt(songCheck.substring(1, 2));
+					}
+					catch(java.lang.StringIndexOutOfBoundsException r)
+					{
+						exceptionRes(response);
+					}
+					if(songindx == -1)
+					{
+						exceptionRes(response);
+					}
+					try
+					{
+						whichArray = Integer.parseInt(songCheck.substring(0,1));
+					}
+					catch(java.lang.StringIndexOutOfBoundsException e)
+					{
+						exceptionRes(response);
+					}
+					sendResponse(response,songindx, whichArray);
+				}
+			}
+		}
+		ChatbotMain.getInput();
+	}
+
+	private void  turnBack(){
+		ChatbotMain.chatbot.getJasonZ().talk(null);
+	}
+
 	private void checkRepitition(String response2) {
 		if(ChatbotMain.findKeyword(lResponse, response2, 0) >= 0 )
 		{
-			ChatbotMain.print("I already responded to that.");
-			ChatbotMain.getInput();
+			ChatbotMain.print("I already responded to that. Do you want a random song");
+			turnBack();
 		}
 		lResponse = response2;
 	}
 
-	private void exceptionRes() {
-		ChatbotMain.print("Not recognized.");
-		ChatbotMain.getInput();
+	private void exceptionRes(String Response) {
+		ChatbotMain.print(Response+" not recognized.");
+		turnBack();
 		
 	}
 
