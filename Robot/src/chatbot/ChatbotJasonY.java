@@ -9,8 +9,7 @@ public class ChatbotJasonY implements Topic{
 	private int happyCount;
 	
 	public ChatbotJasonY() {
-		String[] temp = {"Final Fantasy", "World of Warcraft", "Overwatch", "League of Legends", "Grand Theft Auto", "Heartstone", "Pokemon",
-				"Super Smash Brothers"};
+		String[] temp = {"Final Fantasy", "World of Warcraft", "Overwatch", "Games"};
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		secretKeyword = "Grand Chase";
@@ -24,7 +23,7 @@ public class ChatbotJasonY implements Topic{
 		ChatbotMain.print("Games, huh? They have the power to turn one's life into a couch potato or a shut-in. Pretty scary stuff but if"
 				+ "played with moderation, one can prevent that. But anyways what games do you want to talk about?");
 		response = ChatbotMain.getInput();
-		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) >= -1) {
+		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			for(int i = 0; i < insultWords.length; i++) {
 				if (ChatbotMain.findKeyword(response, insultWords[i], 0) >= 0) {
 					ChatbotMain.print("Nope, take that back.");
@@ -46,7 +45,7 @@ public class ChatbotJasonY implements Topic{
 				response = ChatbotMain.getInput();
 			}
 			
-			if(ChatbotMain.findKeyword(response, keywords[0], 0) >= 0) {
+			else if(ChatbotMain.findKeyword(response, keywords[0], 0) >= 0) {
 				ChatbotMain.print("Final Fantasy has a long history. From the first Final Fantasy, which was released in 1987, to Final "
 						+ "Fantasy XV, which was released in 2016. The franchise was made from a company called \"Square Einx\". Each Final "
 						+ "Fantasy game has its own unqiue plot and characters. They are mostly about saving the world from some kind of "
@@ -55,7 +54,7 @@ public class ChatbotJasonY implements Topic{
 				response = ChatbotMain.getInput();
 			}
 			
-			if(ChatbotMain.findKeyword(response,keywords[1], 0) >= 0) {
+			else if(ChatbotMain.findKeyword(response,keywords[1], 0) >= 0) {
 				ChatbotMain.print("World of Warcraft or sometimes abbreviated as \"WOW\" is a massively multiplayer online role playing game "
 						+ "also abbreviated as \"MMORPG\". This game was released in 2004 by a company called \"Blizzard\". In the game, "
 						+ "the player goes around killing monster for drops and armor. The materials dropped can be used to create equips "
@@ -64,19 +63,37 @@ public class ChatbotJasonY implements Topic{
 				response = ChatbotMain.getInput();
 			}
 			
-			if(ChatbotMain.findKeyword(response, keywords[2], 0) >= 0) {
+			else if(ChatbotMain.findKeyword(response, keywords[2], 0) >= 0) {
 				ChatbotMain.print("Overwatch is a game made by a company called \"Blizzard\". There is a lot of debate whether it is a MOBA "
 						+ "(Multiplayer Online Battle Arena) or a FPS(First Person Shooter) game. Due to the debate, Blizzard has called it "
 						+ "a \"team-based multiplayer online first-person shooter\". Anyways the game is very much like the MOBA games where "
 						+ "the player picks a hero before her or she enters the arena. The player is in a team with 5 players including the "
 						+ "player himslef or herself. The team is up against another team of 5. There are different game modes and each mode "
-						+ "has a different objective and playstyle to it. For instance, ");
+						+ "has a different objective and playstyle to it. For instance, Escort is a Game Mode in which the Attacking team's "
+						+ "objective is to move the payload to a delivery point, while the Defenders must halt the Attackers' progress until "
+						+ "time runs out. Assault is a Game Mode in which the Attacking and Defending teams must attempt to take or defend "
+						+ "capture points across the map. Both teams battle over control of the map, one team on offense, the other on defense. "
+						+ "The attackers' goal is to capture critical objectives, while the defenders must maintain control over them until "
+						+ "time runs out. Hybrid Game Mode starts with an Assault and ends with an Escort section. These two parts behave "
+						+ "exactly as their stand-alone Game Modes do. On Control maps, two teams fight over a series of objective areas in "
+						+ "a best-of-three format. When a team is in control of the round’s objective area, they will make progress toward "
+						+ "capturing it, and whichever team gets to 100% first wins the round. Each round (up to 3 total) will feature a new "
+						+ "objective area located in a different part of the map.");
+				response = ChatbotMain.getInput();
 			}
-			ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
-			response = ChatbotMain.getInput(); 
+			
+			else if(ChatbotMain.findKeyword(response, keywords[3], 0) >= 0) {
+				ChatbotMain.print("");
+				response = ChatbotMain.getInput();
+			}
+			
+			else { 
+				ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
+				response = ChatbotMain.getInput(); 
+			}
 		}  
 		
-		if (happyCount > -2) {
+		if (happyCount < -2) {
 			ChatbotMain.print("Well, I hate talking to you, " + ChatbotMain.chatbot.getUsername().toUpperCase() + "! WORSE PERSON I'VE EVER MEET!" );
 			ChatbotMain.chatbot.startChatting();
 		}
@@ -112,7 +129,7 @@ public class ChatbotJasonY implements Topic{
 			ChatbotMain.chatbot.startChatting();
 		}
 			
-	}
+	}	
 	
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
