@@ -153,13 +153,13 @@ public class ChatbotEthan implements Topic {
 			chosenMovie = movieArray[1];
 		}
 		printMessage(chosenMovie + " is the movie that I want you to guess");
-		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose!");
+		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose! The rules are simple. Guess the movie and you win...3 strikes and you lose.");
 		while(incorrectAnswer) {
 			if(hintCounter >= lordHints.length) {
 				//lose game
 			}
 			else {
-				printMessage("Heres the first hint: " + lordHints[hintCounter]);
+				printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + lordHints[hintCounter]);
 			}
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
