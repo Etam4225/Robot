@@ -21,6 +21,7 @@ public class ChatbotEthan implements Topic {
 	private String[] harrypotterHints;
 	private boolean incorrectAnswer;
 	private int hintCounter;
+	private int strikeCounter;
 	
 	//private String[] movieQuestionArray; DONT NEED YET NOT IMPLEMENTED
 	
@@ -45,16 +46,17 @@ public class ChatbotEthan implements Topic {
 		response = "";
 		//convoCount = 0; dupe responses doesnt work yet
 		
-		String[] myMovieArray = {"Lord of the Rings"};
+		String[] myMovieArray = {"Lord of the Rings" ,"Harry Potter"};
 		movieArray = myMovieArray;
 		chosenMovie = "";
 		guessedMovie = false;
-		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called "};
+		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called Frodo Baggins"};
 		lordHints = mylordHints;
-		String[] myharryHints = {"hint1"};
+		String[] myharryHints = {"hint1", "hint2"};
 		harrypotterHints = myharryHints;
 		incorrectAnswer = true;
 		hintCounter = 0;
+		strikeCounter = 0;
 		
 		myRandNum = 0;
 		
@@ -141,11 +143,8 @@ public class ChatbotEthan implements Topic {
 	public String getChosenMovie() {
 		return null;
 	}
-	public double createRandNum() {
-		myRandNum = Math.random();
-		return myRandNum;
-	}
 	public void initiateGame() {
+		myRandNum = Math.random();
 		if(myRandNum < .5) {
 			chosenMovie = movieArray[0];
 		}
@@ -154,20 +153,33 @@ public class ChatbotEthan implements Topic {
 		}
 		printMessage(chosenMovie + " is the movie that I want you to guess");
 		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose! The rules are simple. Guess the movie and you win...3 strikes and you lose.");
+		incorrectAnswer = true;
 		while(incorrectAnswer) {
-			if(hintCounter >= lordHints.length) {
-				//lose game
+			if(strikeCounter == 3) {
+				//lose game	
+				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername() + "If u wanna try again say start");
+				response = ChatbotMain.getInput();
+				if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
+					strikeCounter = 0;
+					initiateGame();
+					//start the guessing game again
+				}
+				incorrectAnswer = false;
 			}
 			else {
-				printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + lordHints[hintCounter]);
+				if(hintCounter < lordHints.length) {
+					printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + lordHints[hintCounter]);
+				}
 			}
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
-				printMessage("HOLY SMOKES! YOU GUESSED THE MOVIE! SWEET");
+				printMessage("HOLY SMOKES! YOU GUESSED THE MOVIE! SWEETNESS!");
 				incorrectAnswer = false;
+			}else {
+				strikeCounter++;
+				printMessage("You have " +strikeCounter+ " strike(s)");
 			}
 			hintCounter++;
-			//keep getting responses -> implement strike system?
 		}
 	}
 	public boolean isTriggered(String response) {
