@@ -12,7 +12,6 @@ public class ChatbotJasonZ implements Topic {
 	private String[] songs1;
 	private String[] songs2;
 	private static String lResponse;
-	private String[] recordedReponses;
 	private int quiter; 
 	
 	public ChatbotJasonZ() {
@@ -184,7 +183,7 @@ public class ChatbotJasonZ implements Topic {
 	private void  turnBack(){
 		ChatbotMain.chatbot.getJasonZ().talk(null);
 	}
-
+	//look at the code with strings w/ #s;
 	private void checkRepitition(String response) {
 		if(ChatbotMain.findKeyword(response, "yes", 0) >= 0 && lResponse.equals("yes"))
 		{
