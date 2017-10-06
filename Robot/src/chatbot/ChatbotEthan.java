@@ -40,7 +40,7 @@ public class ChatbotEthan implements Topic {
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		
-		String[] botAnnoyed = {"Just say yes or no >:(", "...", "for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
+		String[] botAnnoyed = {"Just say yes or no >:(", "....", "for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
 		annoyed = botAnnoyed;
 		saidYesorNo = false;
 		annoyedCounter = 0;
@@ -54,7 +54,7 @@ public class ChatbotEthan implements Topic {
 		chosenMovie = "";
 		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called Frodo Baggins", "There is a ring involved *wink wink*"};
 		lordHints = mylordHints;
-		String[] myharryHints = { "Ever heard of the term Wingardium Leviosa?", "One word: Hogwarts", "Okay ever heard of someone called Harry?"};
+		String[] myharryHints = {"Ever heard of the term Wingardium Leviosa?", "One word: Hogwarts", "Okay ever heard of someone called Harry?"};
 		harrypotterHints = myharryHints;
 		incorrectAnswer = true;
 		hintCounter = 0;
@@ -72,7 +72,6 @@ public class ChatbotEthan implements Topic {
 		NO = "no";
 		START = "start";
 		
-		//chatbotmain.chatbot.getMYTOPIC.isTriggered(response);
 	}
 
 	public void talk(String response) {
@@ -103,7 +102,7 @@ public class ChatbotEthan implements Topic {
 						initiateGame();
 					}
 					else {
-						printMessage("uh....okay so is there anything else you want me to talk about");
+						printMessage("uh....okay so is there anything else you want me to talk about?");
 					}
 				}
 				else {
@@ -117,7 +116,6 @@ public class ChatbotEthan implements Topic {
 						}
 						else {
 							printMessage("uh....okay so is there anything else you want me to talk about? or u wanna leave?");
-							//ask for his favorite movie? have an array of movies chatbot "watched"?
 							//if its something youve watched and it has a book related to it and link to book?
 						}
 					}
@@ -130,6 +128,7 @@ public class ChatbotEthan implements Topic {
 								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
 								annoyedCounter = 0;
 								ChatbotMain.chatbot.startChatting();
+								//fix this?
 							}
 							else {
 								annoyedCounter++;
@@ -141,8 +140,15 @@ public class ChatbotEthan implements Topic {
 				response = ChatbotMain.getInput();
 			
 		}
-		printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can " + ChatbotMain.chatbot.getUsername() + "!" );
-		ChatbotMain.chatbot.startChatting();
+		if(watchMovie) {
+			printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can " + ChatbotMain.chatbot.getUsername() + "!" );
+		}
+		else {
+			printMessage("Hey since you watched THEMOVIE want me to send you over to the book or music?");
+					ChatbotMain.chatbot.getDavid();
+		}
+		//ChatbotMain.chatbot.startChatting();
+		//doesnt actually "start chatting"
 	
 	}
 	public void printMessage(String message) {
