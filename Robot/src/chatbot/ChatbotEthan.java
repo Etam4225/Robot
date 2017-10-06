@@ -103,7 +103,7 @@ public class ChatbotEthan implements Topic {
 						//start the guessing game
 					}
 					else {
-						printMessage("Don't feel like it? Oh well. Bye then I suppose.");
+						printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can!");
 						//exit and ask diff question etc.?
 						//ask for his favorite movie? have an array of movies chatbot "watched"?
 						//store his fav movie.
@@ -111,33 +111,36 @@ public class ChatbotEthan implements Topic {
 						//GAME ALMOST COMPLETE
 					}
 				}
-				if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
-					checkDupeResponse();
-					printMessage("Ah shucks "+ ChatbotMain.chatbot.getUsername() + "...still wanna play a game anyways? If you say start ill start a game!");
-					saidYesorNo = true;
-					response = ChatbotMain.getInput();
-					if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
-						initiateGame();
-						//start guessing game
-					}
-					else {
-		
-					}
-				}
 				else {
-					if(!saidYesorNo) {
+					if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
 						checkDupeResponse();
-						printMessage(annoyed[annoyedCounter]);
+						printMessage("Ah shucks "+ ChatbotMain.chatbot.getUsername() + "...still wanna play a game anyways? If you say start ill start a game!");
+						saidYesorNo = true;
 						response = ChatbotMain.getInput();
-						if(annoyedCounter == 4) {
-							printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
-							annoyedCounter = 0;
-							ChatbotMain.chatbot.startChatting();
-							//need to fix / link
+						if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
+							initiateGame();
+							//start guessing game
 						}
 						else {
-							annoyedCounter++;
+			
 						}
+					}
+					else {
+						if(!saidYesorNo) {
+							checkDupeResponse();
+							printMessage(annoyed[annoyedCounter]);
+							response = ChatbotMain.getInput();
+							if(annoyedCounter == 4) {
+								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
+								annoyedCounter = 0;
+								ChatbotMain.chatbot.startChatting();
+								//need to fix / link
+							}
+							else {
+								annoyedCounter++;
+							}
+						}
+				
 					}
 				}
 				
@@ -150,7 +153,7 @@ public class ChatbotEthan implements Topic {
 				response = ChatbotMain.getInput();
 			
 		}
-		ChatbotMain.print("Well, it was nice talking to you, " +ChatbotMain.chatbot.getUsername()+"!");
+		printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can " + ChatbotMain.chatbot.getUsername() + "!" );
 		ChatbotMain.chatbot.startChatting();
 	
 	}
@@ -185,7 +188,9 @@ public class ChatbotEthan implements Topic {
 				if(hintCounter < lordHints.length && lordPick) {
 					printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + lordHints[hintCounter]);
 				}
-				printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + harrypotterHints[hintCounter]);
+				else {
+					printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + harrypotterHints[hintCounter]);
+				}
 			}
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
