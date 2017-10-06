@@ -35,10 +35,14 @@ public class ChatbotDavid implements Topic {
 	private int calmSarcasticIndex;
 	private int hintIndex;
 	private int numberOfGuesses;
+	private String[] nRead;
 	
 	public ChatbotDavid() {
 		String[] temp = {"books", "novels", "book", "reading"};
 		keywords = temp;
+		String[] noRead = {"I don't read", "I do not read", "I don't have a favorite book", "I do not have a favorite book", 
+				"I don't like reading", "I do not like reading", "I hate reading"}; 
+		nRead = noRead;
 		goodbyeKeyword = "bye";
 		harryPotterAnswer = "Harry Potter";
 		lotrAnswer = "Lord of the Rings";
@@ -60,8 +64,8 @@ public class ChatbotDavid implements Topic {
 						+ "Don't worry I'll give you hints. Here's your first one: " +  (hHints[hintIndex]));
 				response = ChatbotMain.getInput();
 				if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
-			 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it in " + numberOfGuesses + " "
-			 				+ "guesses! That's pretty impressive. Do you want to know about the movie version? "
+			 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
+			 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
 			 				+ "Or do you want to play again with a different book?");
 				}
 				 if(numberOfGuesses == 0) {
@@ -79,26 +83,40 @@ public class ChatbotDavid implements Topic {
 					 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
 					 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
 					 				+ "Or do you want to play again with a different book?");
-					 		response = ChatbotMain.getInput();
 						}
 				}
+				 response = ChatbotMain.getInput();
 			}
-			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
+			if(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
 				if(noCount < 5) {
 					calmSarcasticIndex = (int)(Math.random()*calmReply.length);
 					ChatbotMain.print(calmReply[calmSarcasticIndex]);
 					response = ChatbotMain.getInput();
 				}
-				else {
+				else{
 					calmSarcasticIndex = (int)(Math.random()*sarcasticReply.length);
 					ChatbotMain.print(sarcasticReply[calmSarcasticIndex]);
 					response = ChatbotMain.getInput();
 				}
 			}
+			if(noCount == 10) {
+				ChatbotMain.print("Fine! :( We won't play my game then. I see how it is. Tell me about your favorite book then.");
+				response = ChatbotMain.getInput();
+				for(int i = 0; i < nRead.length; i++) {
+					if(ChatbotMain.findKeyword(response, nRead[i], 0) >= 0) {
+						ChatbotMain.print("If you don't read what was the point in wanting to talk about books? This is goodbye.");
+						ChatbotMain.chatbot.startChatting();
+					}
+				}
+				/* if(response != nRead[]) {
+					ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too!"
+							+ "What a coincidence!" );
+				} */
+			}
 		}
 		//access variables from other classes
-		ChatbotMain.print("Well, it was nice talking to you, " +ChatbotMain.chatbot.getUsername()+"!");
+		ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername()+"!");
 		ChatbotMain.chatbot.startChatting();
 		}
 	public boolean isTriggered(String response) {
