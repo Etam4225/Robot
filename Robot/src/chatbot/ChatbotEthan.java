@@ -23,7 +23,6 @@ public class ChatbotEthan implements Topic {
 	private int hintCounter;
 	private int strikeCounter;
 	private boolean lordPick;
-	private boolean harryPick;
 	
 	private String userMovieWatch;
 	private String[] movieBotWatch;
@@ -64,7 +63,6 @@ public class ChatbotEthan implements Topic {
 		hintCounter = 0;
 		strikeCounter = 0;
 		lordPick = false;
-		harryPick = false;
 		
 		String[] movieIwatch = {"Star Wars", "Lord of the Rings", "Harry Potter"};
 		movieBotWatch = movieIwatch;
@@ -80,7 +78,17 @@ public class ChatbotEthan implements Topic {
 	}
 
 	public void talk(String response) {
-		printMessage("You wanna talk about movies n stuff yea? So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies? Yes or no?");
+		printMessage("So what's your favorite movie?");
+		response = ChatbotMain.getInput();
+		previousInput = response;
+		userMovieWatch = previousInput;
+		for(int i = 0; i < movieBotWatch.length; i++) {
+			if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) == -1) {
+				printMessage("Wow I watched" + movieBotWatch[i] + "too!");
+			}
+		}
+		printMessage("Ah, I didn't watch " + userMovieWatch);
+		printMessage("So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies in general? Yes or no?");
 		response = ChatbotMain.getInput();
 		previousInput = response;
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
@@ -163,7 +171,6 @@ public class ChatbotEthan implements Topic {
 		}
 		else {
 			chosenMovie = movieArray[1];
-			harryPick = true;
 		}
 		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose! The rules are simple. Guess the movie and you win...3 strikes and you lose.");
 		incorrectAnswer = true;
