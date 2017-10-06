@@ -58,7 +58,8 @@ public class Chatbot {
 				david.talk(response);
 			}
 			else {
-				ChatbotMain.print("I'm sorry. I don't understand. I never said I was perfect.");
+				ChatbotMain.print("I'm sorry. I don't understand. I never said I was perfect. Try asking me about books, movies "
+						+ "music, or games!");
 			} 
 		}
 	}
