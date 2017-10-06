@@ -44,6 +44,7 @@ public class ChatbotJasonZ implements Topic {
 			}
 			if(quiter == 3)
 			{
+				lResponse = null;
 				ChatbotMain.chatbot.startChatting();
 			}
 			
@@ -57,82 +58,11 @@ public class ChatbotJasonZ implements Topic {
 	}
 	
 	private void chooseResponse(String response) {
+		
+		int rand = (int) (Math.floor(Math.random()*11));
 		if(ChatbotMain.findKeyword(response, "Yes", 0) >= 0)
 		{
-			double rand = Math.random();
-			if(rand <= .09)
-			{
-				sendResponse(response, 0, 1);
-			}
-			else 
-			{
-				if(rand <= .18)
-				{
-					sendResponse(response, 1, 1);
-				}
-				else 
-				{
-					if(rand <= .27)
-					{
-						sendResponse(response, 2, 1);
-					}
-					else 
-					{
-						if(rand <= .36)
-						{
-							sendResponse(response, 3, 1);
-						}
-						else 
-						{
-							if(rand <= .45)
-							{
-								sendResponse(response, 4, 2);
-							}
-							else 
-							{
-								if(rand <= .55)
-								{
-									sendResponse(response, 5, 2);
-								}
-								else 
-								{
-									if(rand <= .64)
-									{
-										sendResponse(response, 6, 2);
-									}
-									else 
-									{
-										if(rand <= .73)
-										{
-											sendResponse(response, 7, 2);
-										}
-										else 
-										{
-											if(rand <= .82)
-											{
-												sendResponse(response, 8, 2);
-											}
-											else 
-											{
-												if(rand <= .91)
-												{
-													sendResponse(response, 9, 2);
-												}
-												else 
-												{
-		
-														sendResponse(response, 10, 2);
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				
-			}
+			sendResponse(response, rand, infoGetter("whichSong", songs[rand]));
 		}
 		else 
 		{
@@ -143,45 +73,15 @@ public class ChatbotJasonZ implements Topic {
 			}
 			else
 			{
-				int songindx = 0;
-				int whichArray = 0;
-				String songCheck = checkWhichSong(response);
-				
-				if(songCheck != "")
-				{
-					try 
-					{
-						songindx = Integer.parseInt(songCheck.substring(1, 2));
-					}
-					catch(java.lang.StringIndexOutOfBoundsException r)
-					{
-						exceptionRes(response);
-					}
-					if(songindx == -1)
-					{
-						exceptionRes(response);
-					}
-					try
-					{
-						whichArray = Integer.parseInt(songCheck.substring(0,1));
-					}
-					catch(java.lang.StringIndexOutOfBoundsException e)
-					{
-						exceptionRes(response);
-					}
-					sendResponse(response,songindx, whichArray);
-				}
-				else 
-				{
-					ChatbotMain.print(".");
-				}
+					int songidx = infoGetter("songindx", response);
+					sendResponse(response, songidx, infoGetter("whichSong", songs[rand]));
 			}
 		}
 		response = ChatbotMain.getInput();
 	}
 
 	private void  turnBack(){
-		ChatbotMain.chatbot.getJasonZ().talk(null);
+		talk(null);
 	}
 	//look at the code with strings w/ #s;
 	private void checkRepitition(String response) {
@@ -198,12 +98,6 @@ public class ChatbotJasonZ implements Topic {
 			turnBack();
 		}
 		lResponse = response;
-	}
-
-	private void exceptionRes(String Response) {
-		ChatbotMain.print(Response+" not recognized.");
-		turnBack();
-		
 	}
 
 	private void sendResponse(String response2, int songIndex, int check) {
@@ -224,33 +118,40 @@ public class ChatbotJasonZ implements Topic {
 		}
 	}
 
-	private String checkWhichSong(String resp) {
-		String locationOfSong = "";
-		int songIndx = -1;
-		for(int i = 0; i < songs.length; i++)
+	private int infoGetter(String needed, String response) {
+		int needInfo = 0;
+		if(needed.equals("songindx"))
 		{
-			if(ChatbotMain.findKeyword(songs[i], resp, 0) >= 0)
+			for(int i = 0; i < songs.length; i++)
 			{
-				songIndx = i; 
+				if(ChatbotMain.findKeyword(songs[i], response, 0) >= 0)
+				{
+					needInfo = i; 
+				}
 			}
 		}
-		for(int i = 0; i< songs1.length; i++)
+		else
 		{
-			if(ChatbotMain.findKeyword(songs1[i], resp, 0) >= 0)
+			
+			for(int i = 0; i< songs1.length; i++)
 			{
-				locationOfSong += 1; 
-				locationOfSong += songIndx; 
+				if(ChatbotMain.findKeyword(response, songs1[i], 0) >= 0)
+				{
+					needInfo = 1;
+
+				}
 			}
-		}
-		for(int i = 0; i<songs2.length; i++)
-		{
-			if(ChatbotMain.findKeyword(songs2[i], resp, 0) >= 0)
+			
+			for(int i = 0; i<songs2.length; i++)
 			{
-				locationOfSong += 2; 
-				locationOfSong += songIndx;
+				if(ChatbotMain.findKeyword(response, songs2[i], 0) >= 0)
+				{
+					needInfo = 2;
+				}
 			}
+			
 		}
-		return locationOfSong;
+		return needInfo;
 	}
 
 
