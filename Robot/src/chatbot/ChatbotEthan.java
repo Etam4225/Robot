@@ -22,6 +22,11 @@ public class ChatbotEthan implements Topic {
 	private boolean incorrectAnswer;
 	private int hintCounter;
 	private int strikeCounter;
+	private boolean lordPick;
+	private boolean harryPick;
+	
+	private String userMovieWatch;
+	private String[] movieBotWatch;
 	
 	//private String[] movieQuestionArray; DONT NEED YET NOT IMPLEMENTED
 	
@@ -58,6 +63,11 @@ public class ChatbotEthan implements Topic {
 		incorrectAnswer = true;
 		hintCounter = 0;
 		strikeCounter = 0;
+		lordPick = false;
+		harryPick = false;
+		
+		String[] movieIwatch = {"Star Wars", "Lord of the Rings", "Harry Potter"};
+		movieBotWatch = movieIwatch;
 		
 		myRandNum = 0;
 		
@@ -88,6 +98,7 @@ public class ChatbotEthan implements Topic {
 						
 						//exit and ask diff question etc.?
 						//ask for his favorite movie? have an array of movies chatbot "watched"?
+						//store his fav movie.
 						//if its something youve watched and it has a book related to it and link to book?
 						//GAME ALMOST COMPLETE
 					}
@@ -148,32 +159,26 @@ public class ChatbotEthan implements Topic {
 		myRandNum = Math.random();
 		if(myRandNum < .5) {
 			chosenMovie = movieArray[0];
+			lordPick = true;
 		}
 		else {
 			chosenMovie = movieArray[1];
+			harryPick = true;
 		}
-		//printMessage(chosenMovie + " is the movie that I want you to guess") CHOSEN MOVIE
 		printMessage("Ok I have chosen the movie >:). Ill give you hints till you guess the movie I chose! The rules are simple. Guess the movie and you win...3 strikes and you lose.");
 		incorrectAnswer = true;
 		while(incorrectAnswer) {
 			if(strikeCounter == 3) {
 				//lose game	
-				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername() + "If u wanna try again say start");
+				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername());
 				response = ChatbotMain.getInput();
-				if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
-					strikeCounter = 0;
-					initiateGame();
-					//start the guessing game again
-				}else {
-					//exit function
-					//do stuff
-				}
 				incorrectAnswer = false;
 			}
 			else {
-				if(hintCounter < lordHints.length) {
+				if(hintCounter < lordHints.length && lordPick) {
 					printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + lordHints[hintCounter]);
 				}
+				printMessage("Heres the #"+ (hintCounter + 1) +" hint: " + harrypotterHints[hintCounter]);
 			}
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
@@ -181,7 +186,7 @@ public class ChatbotEthan implements Topic {
 				incorrectAnswer = false;
 			}else {
 				strikeCounter++;
-				printMessage("You have " +strikeCounter+ " strike(s)");
+				printMessage("You have " +strikeCounter+ " strike(s) now");
 			}
 			hintCounter++;
 		}
