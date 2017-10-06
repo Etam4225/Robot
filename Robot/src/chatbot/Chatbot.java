@@ -4,7 +4,7 @@ public class Chatbot {
 
 	private String username;
 	private boolean chatting;
-	private Topic ethan;
+	private ChatbotEthan ethan;
 	private Topic jasony;
 	private Topic JasonZ;
 	private Topic david;
@@ -23,7 +23,7 @@ public class Chatbot {
 		return username;
 	}
 	
-	public Topic getEthan() {
+	public ChatbotEthan getEthan() {
 		return ethan;
 	}
 	public Topic getjasony() {
