@@ -59,8 +59,6 @@ public class Chatbot {
 			}
 			else {
 				ChatbotMain.print("Hmmm.... maybe you should try saying movie, books, music, or games.");
-				ChatbotMain.print("I'm sorry. I don't understand. I never said I was perfect. Try asking me about books, movies "
-						+ "music, or games!");
 			} 
 		}
 	}

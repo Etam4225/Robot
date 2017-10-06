@@ -102,6 +102,9 @@ public class ChatbotEthan implements Topic {
 					if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
 						initiateGame();
 					}
+					else {
+						printMessage("uh....okay so is there anything else you want me to talk about");
+					}
 				}
 				else {
 					if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
@@ -113,7 +116,7 @@ public class ChatbotEthan implements Topic {
 							initiateGame();
 						}
 						else {
-							printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can!");
+							printMessage("uh....okay so is there anything else you want me to talk about? or u wanna leave?");
 							//ask for his favorite movie? have an array of movies chatbot "watched"?
 							//if its something youve watched and it has a book related to it and link to book?
 						}
