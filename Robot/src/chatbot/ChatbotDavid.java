@@ -25,6 +25,13 @@ public class ChatbotDavid implements Topic {
 		 "Lightning scar",
 		 "Involves a game called Quidditch",
 		 "You're a wizard ______!"};
+	public static String[] lotrHints = 
+		{"One of the best selling novels ever written with over 150 million copies sold",
+		 "Published in 3  volumes, each with 2 books per volume",
+		 "Written by J.R.R. Tolkien",
+		 "The story's main antagonist is the Dark Lord Sauron",
+		 "One Ring"
+		};
 	private int calmSarcasticIndex;
 	private int hintIndex;
 	private int numberOfGuesses;
