@@ -19,7 +19,7 @@ public class ChatbotDavid implements Topic {
 				"You get off on this don't you?",
 					"Hey look at me! I'm a guy with a clearly limited vocabulary whos whole knowledge of English can fit in a single Tweet."
 		};
-	private static String[] hints = 
+	private static String[] hHints = 
 		{"7 book series but 8 movies",
 		 "The boy who lived",
 		 "Lightning scar",
@@ -50,7 +50,7 @@ public class ChatbotDavid implements Topic {
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, confirmation, 0) == 0) {
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
-						+ "Don't worry I'll give you hints. Here's your first one: " +  (hints[hintIndex]));
+						+ "Don't worry I'll give you hints. Here's your first one: " +  (hHints[hintIndex]));
 				response = ChatbotMain.getInput();
 				if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
 			 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it in " + numberOfGuesses + " "
@@ -66,7 +66,7 @@ public class ChatbotDavid implements Topic {
 					 hintIndex++;		
 					 numberOfGuesses--;
 					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
-						+ " next hint: " + (hints[hintIndex]));
+						+ " next hint: " + (hHints[hintIndex]));
 					 response = ChatbotMain.getInput();	 	
 					 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
 					 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
@@ -104,4 +104,3 @@ public class ChatbotDavid implements Topic {
 	}
 	
 }
-
