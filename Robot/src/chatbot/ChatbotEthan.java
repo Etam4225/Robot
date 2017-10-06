@@ -4,7 +4,6 @@ public class ChatbotEthan implements Topic {
 
 	private String[] keywords;
 	private String goodbyeKeyword;
-	private String secretKeyword;
 	private String response;
 	
 	private String[] annoyed;
@@ -16,7 +15,6 @@ public class ChatbotEthan implements Topic {
 
 	private String[] movieArray;
 	private String chosenMovie;
-	private boolean guessedMovie;
 	private String[] lordHints;
 	private String[] harrypotterHints;
 	private boolean incorrectAnswer;
@@ -26,6 +24,7 @@ public class ChatbotEthan implements Topic {
 	
 	private String userMovieWatch;
 	private String[] movieBotWatch;
+	private boolean watchMovie;
 	
 	//private String[] movieQuestionArray; DONT NEED YET NOT IMPLEMENTED
 	
@@ -46,7 +45,6 @@ public class ChatbotEthan implements Topic {
 		saidYesorNo = false;
 		annoyedCounter = 0;
 		
-		secretKeyword = "N/A";
 		response = "";
 		
 		convoCount = 0; 
@@ -54,7 +52,6 @@ public class ChatbotEthan implements Topic {
 		String[] myMovieArray = {"Lord of the Rings" ,"Harry Potter"};
 		movieArray = myMovieArray;
 		chosenMovie = "";
-		guessedMovie = false;
 		String[] mylordHints = {"The movie takes place in the Middle earth", "There is a famous character called Frodo Baggins", "There is a ring involved *wink wink*"};
 		lordHints = mylordHints;
 		String[] myharryHints = { "Ever heard of the term Wingardium Leviosa?", "One word: Hogwarts", "Okay ever heard of someone called Harry?"};
@@ -66,6 +63,7 @@ public class ChatbotEthan implements Topic {
 		
 		String[] movieIwatch = {"Star Wars", "Lord of the Rings", "Harry Potter"};
 		movieBotWatch = movieIwatch;
+		watchMovie = false;
 		
 		myRandNum = 0;
 		
@@ -85,9 +83,12 @@ public class ChatbotEthan implements Topic {
 		for(int i = 0; i < movieBotWatch.length; i++) {
 			if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) >= 0) {
 				printMessage("Wow I watched " + movieBotWatch[i] + " too!");
-			}
+				watchMovie = true;
+			} 
 		}
-		printMessage("Ah, I didn't watch " + userMovieWatch);
+		if(!watchMovie) {
+			printMessage("Ah, I didn't watch " + userMovieWatch);
+		}
 		printMessage("So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies in general? Yes or no?");
 		response = ChatbotMain.getInput();
 		//previousInput = response;
@@ -100,15 +101,6 @@ public class ChatbotEthan implements Topic {
 					response = ChatbotMain.getInput();
 					if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
 						initiateGame();
-						//start the guessing game
-					}
-					else {
-						printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can!");
-						//exit and ask diff question etc.?
-						//ask for his favorite movie? have an array of movies chatbot "watched"?
-						//store his fav movie.
-						//if its something youve watched and it has a book related to it and link to book?
-						//GAME ALMOST COMPLETE
 					}
 				}
 				else {
@@ -119,10 +111,11 @@ public class ChatbotEthan implements Topic {
 						response = ChatbotMain.getInput();
 						if(ChatbotMain.findKeyword(response, START, 0) >= 0) {
 							initiateGame();
-							//start guessing game
 						}
 						else {
-			
+							printMessage("Guess you don't feel like playing eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can!");
+							//ask for his favorite movie? have an array of movies chatbot "watched"?
+							//if its something youve watched and it has a book related to it and link to book?
 						}
 					}
 					else {
@@ -134,21 +127,13 @@ public class ChatbotEthan implements Topic {
 								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
 								annoyedCounter = 0;
 								ChatbotMain.chatbot.startChatting();
-								//need to fix / link
 							}
 							else {
 								annoyedCounter++;
 							}
 						}
-				
 					}
-				}
-				
-			}
-			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
-				ChatbotMain.print("I can't even. I love pugs so much. Wow. You are so cool.");
-				response = ChatbotMain.getInput();
-				//remove?
+				}	
 			}
 				response = ChatbotMain.getInput();
 			
@@ -179,7 +164,6 @@ public class ChatbotEthan implements Topic {
 		incorrectAnswer = true;
 		while(incorrectAnswer) {
 			if(strikeCounter == 3) {
-				//lose game	
 				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername());
 				response = ChatbotMain.getInput();
 				incorrectAnswer = false;
@@ -212,5 +196,4 @@ public class ChatbotEthan implements Topic {
 		}
 		return false;
 	}
-
 }
