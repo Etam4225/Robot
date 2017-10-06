@@ -78,19 +78,19 @@ public class ChatbotEthan implements Topic {
 	}
 
 	public void talk(String response) {
-		printMessage("So what's your favorite movie?");
+		printMessage("So what's your favorite movie, " +ChatbotMain.chatbot.getUsername()+ "?");
 		response = ChatbotMain.getInput();
 		previousInput = response;
 		userMovieWatch = previousInput;
 		for(int i = 0; i < movieBotWatch.length; i++) {
-			if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) == -1) {
-				printMessage("Wow I watched" + movieBotWatch[i] + "too!");
+			if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) >= 0) {
+				printMessage("Wow I watched " + movieBotWatch[i] + " too!");
 			}
 		}
 		printMessage("Ah, I didn't watch " + userMovieWatch);
 		printMessage("So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies in general? Yes or no?");
 		response = ChatbotMain.getInput();
-		previousInput = response;
+		//previousInput = response;
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			checkDupeResponse();
 			while(!saidYesorNo) {
@@ -103,7 +103,7 @@ public class ChatbotEthan implements Topic {
 						//start the guessing game
 					}
 					else {
-						
+						printMessage("Don't feel like it? Oh well. Bye then I suppose.");
 						//exit and ask diff question etc.?
 						//ask for his favorite movie? have an array of movies chatbot "watched"?
 						//store his fav movie.
