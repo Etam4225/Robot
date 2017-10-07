@@ -5,9 +5,9 @@ public class Chatbot {
 	private String username;
 	private boolean chatting;
 	private ChatbotEthan ethan;
-	private Topic jasony;
-	private Topic JasonZ;
-	private Topic david;
+	private ChatbotJasonY jasony;
+	private ChatbotJasonZ JasonZ;
+	private ChatbotDavid david;
 	
 	public Chatbot() {
 		ethan = new ChatbotEthan();
@@ -26,13 +26,13 @@ public class Chatbot {
 	public ChatbotEthan getEthan() {
 		return ethan;
 	}
-	public Topic getjasony() {
+	public ChatbotJasonY getjasony() {
 		return jasony;
 	}
-	public Topic getJasonZ() {
+	public ChatbotJasonZ getJasonZ() {
 		return JasonZ;
 	}
-	public Topic getDavid() {
+	public ChatbotDavid getDavid() {
 		return david;
 	}
 	public void startChatting() {
