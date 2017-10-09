@@ -109,8 +109,9 @@ public class ChatbotDavid implements Topic {
 						ChatbotMain.chatbot.startChatting();
 					}
 				}
-				/* if(response != nRead[]) {
-					ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too!"
+				/* 
+					if(response != nRead[]) {
+						ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too!"
 							+ "What a coincidence!" );
 				} */
 			}
