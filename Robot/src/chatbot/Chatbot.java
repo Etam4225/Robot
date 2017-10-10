@@ -63,4 +63,8 @@ public class Chatbot {
 		}
 	}
 
+	public void changeChatting() {
+		chatting = true;
+	}
+
 }
