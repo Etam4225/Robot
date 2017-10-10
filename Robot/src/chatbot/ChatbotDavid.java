@@ -68,24 +68,26 @@ public class ChatbotDavid implements Topic {
 			 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
 			 				+ "Or do you want to play again with a different book?");
 				}
-				 if(numberOfGuesses == 0) {
-					 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
-					 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
-					 		+ "learn about the movie version?");
-				 }
 				 while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
 					 hintIndex++;		
 					 numberOfGuesses--;
 					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
 						+ " next hint: " + (hHints[hintIndex]));
 					 response = ChatbotMain.getInput();	 	
-					 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
-					 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
-					 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
-					 				+ "Or do you want to play again with a different book?");
-						}
 				}
-				 response = ChatbotMain.getInput();
+				 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
+				 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
+				 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
+				 				+ "Or do you want to play again with a different book?");
+						 response = ChatbotMain.getInput();
+					}
+				 if(numberOfGuesses == 0 && hintIndex > 4) {
+					 hintIndex = 0;
+					 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
+					 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
+					 		+ "learn about the movie version?");
+				 }
+				 //response = ChatbotMain.getInput();
 			}
 			if(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
@@ -100,25 +102,21 @@ public class ChatbotDavid implements Topic {
 					response = ChatbotMain.getInput();
 				}
 			}
-			if(noCount == 10) {
+			if(noCount > 8) {
 				ChatbotMain.print("Fine! :( We won't play my game then. I see how it is. Tell me about your favorite book then.");
 				response = ChatbotMain.getInput();
 				for(int i = 0; i < nRead.length; i++) {
 					if(ChatbotMain.findKeyword(response, nRead[i], 0) >= 0) {
 						ChatbotMain.print("If you don't read what was the point in wanting to talk about books? This is goodbye.");
-						ChatbotMain.chatbot.startChatting();
+						exitThisChatBot();
 					}
-				}
-				/* 
-					if(response != nRead[]) {
-						ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too!"
-							+ "What a coincidence!" );
-				} */
+					}
+				ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too! "
+						+ "What a coincidence!" );
 			}
-		}
 		//access variables from other classes
-		ChatbotMain.print("Well, it was nice talking to you, " + ChatbotMain.chatbot.getUsername()+"!");
-		ChatbotMain.chatbot.startChatting();
+		}
+				
 		}
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
@@ -129,5 +127,8 @@ public class ChatbotDavid implements Topic {
 		}
 		return false;
 	}
-	
+	public void exitThisChatBot() {
+		ChatbotMain.chatbot.changeChatting();
+		ChatbotMain.chatbot.startChatting();
+	}
 }
