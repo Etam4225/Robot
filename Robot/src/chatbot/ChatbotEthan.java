@@ -146,6 +146,7 @@ public class ChatbotEthan implements Topic {
 				ChatbotMain.chatbot.getDavid().talk(null);
 			}
 		}else {
+			printMessage("I'll be sure to watch " +userMovieWatch+ " when I can! Wait..I'm a chatbot oops");
 			exitThisChatBot();
 		}
 	}
