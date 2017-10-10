@@ -168,7 +168,7 @@ public class ChatbotEthan implements Topic {
 			if(strikeCounter == 3) {
 				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername() + ". See you again when you can get it right.");
 				incorrectAnswer = false;
-				exitThisChatBot();
+				goToDiffChatBot();
 			}
 			else {
 				if(hintCounter < lordHints.length && lordPick) {
@@ -182,7 +182,7 @@ public class ChatbotEthan implements Topic {
 			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
 				printMessage("Wow....guess you beat me good...GG");
 				incorrectAnswer = false;
-				exitThisChatBot();
+				goToDiffChatBot();
 			}else {
 				strikeCounter++;
 				printMessage("You have " +strikeCounter+ " strike(s) now");
