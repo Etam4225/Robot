@@ -20,13 +20,16 @@ public class ChatbotJasonZ implements Topic {
 	private String[] infoQuestions;
 	private int timeAsked;
 	private boolean obtainingInformation;
+	private String[] affrimativeWords;
 	
 	public ChatbotJasonZ() {
 		String[] Songs = {"The Shadow of the Past","A Knife in the Dark","Flight to the Ford","Many Meeting","The Council of Elrond","The Ring goes South","The Bridge of Khazad Dum","Lothlorien", "Amon Hend","The Breaking of the Fellowship","May it be"};
 		String[] Songs1 = {"The Shadow of the Past","A Knife in the Dark","Flight to the Ford","Many Meeting","The Council of Elrond"};
 		String[] Songs2 = {"The Ring goes South","The Bridge of Khazad Dum","Lothlorien", "Amon Hend","The Breaking of the Fellowship","May it be"};
 		String[] temp = {"lord of the ring's music", "lord of the rings music", "music"};
-		String[] infoquestion = {"What's your favorite Movie?", "What's your favorite genre for songs?"};
+		String[] infoquestion = {"What's your favorite song from the Fellowship?", "What's your favorite genre for songs?"};
+		String[] yesWords = {"sure", " uh huh", "Please", "ok", "hell yea", "yea", "coolio", "mhm"};
+		affrimativeWords = yesWords;
 		infoQuestions = infoquestion;
 		songs = Songs;
 		songs1 = Songs1;
@@ -51,8 +54,12 @@ public class ChatbotJasonZ implements Topic {
 			ChatbotMain.print("Hey! So you want to talk about songs from the Fellowship of the Ring? How about a random song? Respond with yes or no.");
 			response = ChatbotMain.getInput();
 		}
-		learnInformation();
-		response = ChatbotMain.getInput();
+		if(obtainingInformation == true)
+		{
+			learnInformation();
+		}
+	
+		response = checkIfEmpty(response);
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
 				ChatbotMain.print("Wow I love that song! isn't the title amazing?.");
@@ -80,28 +87,37 @@ public class ChatbotJasonZ implements Topic {
 		
 	}
 	
+	private String checkIfEmpty(String response) {
+		while(response.compareTo("a") <= 0 )
+		{
+			ChatbotMain.print(".");
+			response = ChatbotMain.getInput();
+		}
+		return response;
+	}
+
 	private void learnInformation() {
 		ChatbotMain.print("First, let me know about you.");
 		pause(1000);
 		ChatbotMain.print(infoQuestions[0]);
 		response = ChatbotMain.getInput();
-		songLiked = response;
-		for(int i = 0; i <= songs.length; i++)
+		songLiked = checkIfEmpty(response);
+		infoGetter("songindx", response);
+		if(infoGetter("songindx", response) != -1)
 		{
-			if(ChatbotMain.findKeyword(songs[i], response, 0) >= 0)
-			{
-				ChatbotMain.print("That's nice, you like a song from the Fellowship of the Ring!");
-			}
-			else 
-			{
-				ChatbotMain.print("Aw isn't that a shame, "+ songLiked +" isn't from Fellowship of the Ring");
-			}
+			ChatbotMain.print("That's nice, you like a song from the Fellowship of the Ring!");
 		}
-		
+		else 
+		{
+			ChatbotMain.print("Aw isn't that a shame, "+ songLiked +" isn't from the Fellowship of the Ring");
+		}
+		pause(1000);
 		ChatbotMain.print(infoQuestions[1]);
-		response = ChatbotMain.getInput(); 
-		genreLiked = response;
+		response = ChatbotMain.getInput();
+		genreLiked = checkIfEmpty(response);
 		obtainingInformation = false;
+		ChatbotMain.print("How about a song now? ;3");
+		turnBack();
 	}
 
 	private void pause(int time) {
@@ -158,7 +174,22 @@ public class ChatbotJasonZ implements Topic {
 			else
 			{
 					int songidx = infoGetter("songindx", response);
-					sendResponse(response, songidx, infoGetter("whichSong", songs[rand]), checkIfFavorite(songs[songidx]));
+					try
+					{
+						sendResponse(response, songidx, infoGetter("whichSong", songs[rand]), checkIfFavorite(songs[songidx]));
+					}
+					catch(ArrayIndexOutOfBoundsException r)
+					{
+						for(int i = 0; i< affrimativeWords.length; i++)
+						{
+							if(ChatbotMain.findKeyword(affrimativeWords[i], response, 0) >= 0)
+							{
+								chooseResponse("yes");
+							}
+						}
+						ChatbotMain.print("????");
+						turnBack();
+					}
 			}
 		}
 		turnBack();
@@ -218,11 +249,11 @@ public class ChatbotJasonZ implements Topic {
 		{
 			if( check == 1 && favorite == true)
 			{
-				ChatbotMain.print("Wow! You know your favorite song, "+ songs[songIndex] +" is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
+				ChatbotMain.print("Wow! You know your favorite song, '"+ songs[songIndex] +"' is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
 			}
 			else 
 			{
-				ChatbotMain.print("Wow! You know "+ songs[songIndex] +" is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
+				ChatbotMain.print("Wow! You know '"+ songs[songIndex] +"' is so good that we can feel the heroism and adventure in the Fellowship Theme, the warm simplicity and desire for home invoked by the Hobbits' Theme, and the dark seduction of Ring's Theme.");
 			}
 			
 			if(check == 2 && favorite == true)
