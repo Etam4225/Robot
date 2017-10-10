@@ -9,9 +9,6 @@ public class ChatbotEthan implements Topic {
 	private String[] annoyed;
 	private boolean saidYesorNo;
 	private int annoyedCounter;
-	
-	private String previousInput;
-	private int convoCount;
 
 	private String[] movieArray;
 	private String chosenMovie;
@@ -37,15 +34,13 @@ public class ChatbotEthan implements Topic {
 		keywords = temp;
 		goodbyeKeyword = "bye";
 		
-		String[] botAnnoyed = {"Just say yes or no >:(", "....", "for real tho pls", "seriously. stop", "ok this is your last chance to say yes or no."};
+		String[] botAnnoyed = {"Just say yes or no >:(", "....", "for real tho pls", "Stop abusing the bot!", "ok this is your last chance to say yes or no."};
 		annoyed = botAnnoyed;
 		saidYesorNo = false;
 		annoyedCounter = 0;
 		
 		response = "";
-		
-		convoCount = 0; 
-		
+				
 		String[] myMovieArray = {"Lord of the Rings" ,"Harry Potter"};
 		movieArray = myMovieArray;
 		chosenMovie = "";
@@ -61,6 +56,7 @@ public class ChatbotEthan implements Topic {
 		String[] movieIwatch = {"Lord of the Rings", "Harry Potter"};
 		movieBotWatch = movieIwatch;
 		watchMovie = false;
+		userMovieWatch = "";
 		
 		myRandNum = 0;
 		
@@ -74,23 +70,21 @@ public class ChatbotEthan implements Topic {
 	public void talk(String response) {
 		printMessage("So what's your favorite movie, " +ChatbotMain.chatbot.getUsername()+ "?");
 		response = ChatbotMain.getInput();
-		previousInput = response;
-		userMovieWatch = previousInput;
-		for(int i = 0; i < movieBotWatch.length; i++) {
-			if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) >= 0) {
-				printMessage("Wow I watched " + movieBotWatch[i] + " too!");
-				watchMovie = true;
-			} 
-		}
-		if(!watchMovie) {
-			printMessage("Ah, I didn't watch " + userMovieWatch);
-		}
-		printMessage("So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies in general? Yes or no?");
-		response = ChatbotMain.getInput();
-		//previousInput = response;
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
-			checkDupeResponse();
+			//response = ChatbotMain.getInput();
+			userMovieWatch = response;
+			for(int i = 0; i < movieBotWatch.length; i++) {
+				if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) >= 0) {
+					printMessage("Wow I watched " + movieBotWatch[i] + " too!");
+					watchMovie = true;
+				} 
+			}
+			if(!watchMovie) {
+				printMessage("Ah, I didn't watch " + userMovieWatch);
+			}
+			printMessage("So, " +ChatbotMain.chatbot.getUsername()+ ", you like movies in general? Yes or no?");
 			while(!saidYesorNo) {
+				response = ChatbotMain.getInput();
 				if(ChatbotMain.findKeyword(response, YES, 0) >= 0 && response.length() == 3) {
 					printMessage("Good to know "+ ChatbotMain.chatbot.getUsername() + "! So do you want to play a game called Guess the Movie? Say start and we can start!");
 					saidYesorNo = true;
@@ -99,12 +93,12 @@ public class ChatbotEthan implements Topic {
 						initiateGame();
 					}
 					else {
-						printMessage("Wow you don't even want to play a game?");
+						printMessage("Not playing huh? I dont have much else for you :/");
+						goToDiffChatBot();
 					}
 				}
 				else {
 					if(ChatbotMain.findKeyword(response, NO, 0) >= 0 && response.length() == 2) {
-						checkDupeResponse();
 						printMessage("Ah shucks "+ ChatbotMain.chatbot.getUsername() + "...still wanna play a game anyways? If you say start ill start a game!");
 						saidYesorNo = true;
 						response = ChatbotMain.getInput();
@@ -112,17 +106,16 @@ public class ChatbotEthan implements Topic {
 							initiateGame();
 						}
 						else {
-							printMessage("uh....okay so is there anything else you want me to talk about? or u wanna leave?");
+							printMessage("Guess you aren't playing, huh? OK then laters");
+							goToDiffChatBot();
 						}
 					}
 					else {
 						if(!saidYesorNo) {
-							checkDupeResponse();
 							printMessage(annoyed[annoyedCounter]);
-							response = ChatbotMain.getInput();
 							if(annoyedCounter == 4) {
 								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
-								annoyedCounter = 0;
+								goToDiffChatBot();
 							}
 							else {
 								annoyedCounter++;
@@ -132,22 +125,33 @@ public class ChatbotEthan implements Topic {
 				}	
 			}	
 		}
-		if(watchMovie) {
-			printMessage("Hey since you watched " +userMovieWatch+ " I think you might like to meet the book chatbot");
-			 ChatbotMain.chatbot.getDavid().talk(null);
-		}
-		else {
-			printMessage("Guess you are done now, eh? Bye then I suppose. I'll make sure to watch " + userMovieWatch + " when I can " + ChatbotMain.chatbot.getUsername() + "!" );
-		}
+		goToDiffChatBot();
+		printMessage("Bye!");
 	}
 	public void printMessage(String message) {
 		ChatbotMain.print(message);
 	}
-	public void checkDupeResponse() {
-		if(previousInput.equals(response) && convoCount > 0) {
-			printMessage("Ever thought of saying something unique?");
+	public void goToDiffChatBot() {
+		if(watchMovie) {
+			printMessage("Hey since you watched " +userMovieWatch+ ",if you want to go to the other bots just say music or book");
+			response = ChatbotMain.getInput();
+			if(ChatbotMain.findKeyword(response, "Music", 0) >= 0 && userMovieWatch.equals(movieBotWatch[0])) {
+				ChatbotMain.chatbot.getJasonZ().talk(null);
+			}
+			if(ChatbotMain.findKeyword(response, "Music", 0) >= 0 && !userMovieWatch.equals(movieBotWatch[0])){
+				printMessage("I'm sorry but the Music Chatbot doesn't have Harry Potter programmed.");
+				exitThisChatBot();
+			}
+			if(ChatbotMain.findKeyword(response, "Book", 0) >= 0) {
+				ChatbotMain.chatbot.getDavid().talk(null);
+			}
+		}else {
+			exitThisChatBot();
 		}
-		convoCount++;
+	}
+	public void exitThisChatBot() {
+		ChatbotMain.chatbot.changeChatting();
+		ChatbotMain.chatbot.startChatting();
 	}
 	public void initiateGame() {
 		myRandNum = Math.random();
@@ -162,9 +166,9 @@ public class ChatbotEthan implements Topic {
 		incorrectAnswer = true;
 		while(incorrectAnswer) {
 			if(strikeCounter == 3) {
-				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername() + ". See you again when you can get my hints right next time.");
+				printMessage("Heh, looks like I won, "+ ChatbotMain.chatbot.getUsername() + ". See you again when you can get it right.");
 				incorrectAnswer = false;
-				ChatbotMain.chatbot.startChatting();
+				exitThisChatBot();
 			}
 			else {
 				if(hintCounter < lordHints.length && lordPick) {
@@ -178,7 +182,7 @@ public class ChatbotEthan implements Topic {
 			if(ChatbotMain.findKeyword(response, chosenMovie, 0) >= 0) {
 				printMessage("Wow....guess you beat me good...GG");
 				incorrectAnswer = false;
-				ChatbotMain.chatbot.startChatting();
+				exitThisChatBot();
 			}else {
 				strikeCounter++;
 				printMessage("You have " +strikeCounter+ " strike(s) now");
