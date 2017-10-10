@@ -8,7 +8,6 @@ public class ChatbotJasonY implements Topic{
 	private String[] insultWords;
 	private String[] goodWords;
 	private String goodbyeKeyword;
-	private String secretKeyword;
 	private String response;
 	private int happyCount;
 	
@@ -45,7 +44,7 @@ public class ChatbotJasonY implements Topic{
 				+ "defenders must maintain control over them until time runs out. Hybrid Game Mode starts with an Assault "
 				+ "and ends with an Escort section. These two parts behave exactly as their stand-alone Game Modes do. On "
 				+ "Control maps, two teams fight over a series of objective areas in a best-of-three format. When a team is "
-				+ "in control of the round’s objective area, they will make progress toward capturing it, and whichever team "
+				+ "in control of the roundâ€™s objective area, they will make progress toward capturing it, and whichever team "
 				+ "gets to 100% first wins the round. Each round (up to 3 total) will feature a new objective area located "
 				+ "in a different part of the map."
 				
@@ -74,10 +73,14 @@ public class ChatbotJasonY implements Topic{
 		String[] praise = {"good", "nice", "great", "cool"};
 		goodWords = praise;
 		goodbyeKeyword = "bye";
-		secretKeyword = "Grand Chase";
 		response = "";
 		happyCount = 0;
 		
+	}
+	
+	public void exitThisChatBot() {
+		ChatbotMain.chatbot.changeChatting();
+		ChatbotMain.chatbot.startChatting();
 	}
 	
 	public void talk(String response) {
@@ -85,17 +88,29 @@ public class ChatbotJasonY implements Topic{
 				+ "played with moderation, one can prevent that. But anyways what do you want to talk about?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			for(int i = 0; i < keywords.length; i++) {
+				if (ChatbotMain.findKeyword(response, keywords[i], 0) >= 0) {
+					if(i == 0) {
+						ChatbotMain.print(responses[i]);
+						happyCount++;
+						response = ChatbotMain.getInput();
+					}
+					else {
+						ChatbotMain.print(responses[i]);
+						response = ChatbotMain.getInput();
+					}
+				}
+			}
+			
 			for(int i = 0; i < insultWords.length; i++) {
 				if (ChatbotMain.findKeyword(response, insultWords[i], 0) >= 0) {
 					ChatbotMain.print("Nope, take that back.");
 					if (happyCount == -3) {
-						i=0;
 						response = ChatbotMain.getInput();
 					}
 					else {
 						happyCount--;
-						i=0;
-						response = ChatbotMain.getInput();
+					 	response = ChatbotMain.getInput();
 						
 					}
 				}
@@ -105,40 +120,25 @@ public class ChatbotJasonY implements Topic{
 				if (ChatbotMain.findKeyword(response, goodWords[i], 0) >= 0) {
 					ChatbotMain.print("RIGHT!");
 					if (happyCount == 3) {
-						i=0;
 						response = ChatbotMain.getInput();
 					}
 					else {
 						happyCount++;
-						i=0;
 						response = ChatbotMain.getInput();
 						
 					}
 				}
+				else {
+					ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
+					response = ChatbotMain.getInput(); 
+				}
 			}			
-			
-			for(int i = 0; i < keywords.length; i++) {
-				if (ChatbotMain.findKeyword(response, keywords[i], 0) >= 0) {
-					if(i == 1) {
-						ChatbotMain.print(responses[i]);
-						happyCount++;
-						response = ChatbotMain.getInput();
-					}
-					else {
-						ChatbotMain.print(responses[i]);
-						response = ChatbotMain.getInput();
-					}
-				}			
-			}
-			
-			ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
-			response = ChatbotMain.getInput(); 	
 		}  
 		
 		for (int i = 0; i < end.length; i++) {
 			if (i - 3 == happyCount) {
 				ChatbotMain.print(end[i] + ChatbotMain.chatbot.getUsername() + comment[i]);
-				ChatbotMain.chatbot.startChatting();
+				exitThisChatBot();
 			}
 		}
 			
