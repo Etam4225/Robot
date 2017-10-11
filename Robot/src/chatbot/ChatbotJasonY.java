@@ -10,6 +10,7 @@ public class ChatbotJasonY implements Topic{
 	private String goodbyeKeyword;
 	private String response;
 	private int happyCount;
+	private boolean found;
 	
 	public ChatbotJasonY() {
 		String[] temp = {"Grand Chase" , "Final Fantasy", "World of Warcraft", "Overwatch", "Games"};
@@ -75,7 +76,7 @@ public class ChatbotJasonY implements Topic{
 		goodbyeKeyword = "bye";
 		response = "";
 		happyCount = 0;
-		
+		found = false;
 	}
 	
 	public void exitThisChatBot() {
@@ -88,51 +89,17 @@ public class ChatbotJasonY implements Topic{
 				+ "played with moderation, one can prevent that. But anyways what do you want to talk about?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
-			for(int i = 0; i < keywords.length; i++) {
-				if (ChatbotMain.findKeyword(response, keywords[i], 0) >= 0) {
-					if(i == 0) {
-						ChatbotMain.print(responses[i]);
-						happyCount++;
-						response = ChatbotMain.getInput();
-					}
-					else {
-						ChatbotMain.print(responses[i]);
-						response = ChatbotMain.getInput();
-					}
-				}
+			keywords(response);
+			insult(response);
+			praise(response);
+			if (found) {
+				found = false;
+				response = ChatbotMain.getInput(); 	
 			}
-			
-			for(int i = 0; i < insultWords.length; i++) {
-				if (ChatbotMain.findKeyword(response, insultWords[i], 0) >= 0) {
-					ChatbotMain.print("Nope, take that back.");
-					if (happyCount == -3) {
-						response = ChatbotMain.getInput();
-					}
-					else {
-						happyCount--;
-					 	response = ChatbotMain.getInput();
-						
-					}
-				}
-			}
-			
-			for(int i = 0; i < goodWords.length; i++) {
-				if (ChatbotMain.findKeyword(response, goodWords[i], 0) >= 0) {
-					ChatbotMain.print("RIGHT!");
-					if (happyCount == 3) {
-						response = ChatbotMain.getInput();
-					}
-					else {
-						happyCount++;
-						response = ChatbotMain.getInput();
-						
-					}
-				}
-				else {
-					ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
-					response = ChatbotMain.getInput(); 
-				}
-			}			
+			else {
+				ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
+				response = ChatbotMain.getInput(); 		
+			}	
 		}  
 		
 		for (int i = 0; i < end.length; i++) {
@@ -143,6 +110,47 @@ public class ChatbotJasonY implements Topic{
 		}
 			
 	}	
+	
+	public void keywords(String response) {
+		for(int i = 0; i < keywords.length; i++) {
+			if (ChatbotMain.findKeyword(response, keywords[i], 0) >= 0) {
+				if(i == 0) {
+					happyCount++;
+					found = true;					
+					ChatbotMain.print(responses[i]);
+				}
+				else {
+					found = true;
+					ChatbotMain.print(responses[i]);
+				}
+			}
+		}
+	}
+	
+	public void praise(String response) {
+		for(int i = 0; i < goodWords.length; i++) {
+			if (ChatbotMain.findKeyword(response, goodWords[i], 0) >= 0) {
+				found = true;
+				ChatbotMain.print("RIGHT!");
+				if (happyCount < 3) {
+					happyCount++;
+				}
+			}
+		}		
+		
+	}
+	
+	public void insult(String response) {
+		for(int i = 0; i < insultWords.length; i++) {
+			if (ChatbotMain.findKeyword(response, insultWords[i], 0) >= 0) {
+				found = true;
+				ChatbotMain.print("Nope, take that back.");
+				if (happyCount > -3) {
+					happyCount--;
+				}
+			}
+		}
+	}
 	
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
