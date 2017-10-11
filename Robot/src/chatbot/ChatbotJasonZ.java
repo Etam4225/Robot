@@ -58,7 +58,7 @@ public class ChatbotJasonZ implements Topic {
 		{
 			learnInformation();
 		}
-	
+		response = ChatbotMain.getInput();
 		response = checkIfEmpty(response);
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
 			if(ChatbotMain.findKeyword(response, secretKeyword, 0) >= 0) {
@@ -88,7 +88,7 @@ public class ChatbotJasonZ implements Topic {
 	}
 	
 	private String checkIfEmpty(String response) {
-		while(response.compareTo("a") <= 0 )
+		if(response.equals(" "))
 		{
 			ChatbotMain.print(".");
 			response = ChatbotMain.getInput();
@@ -187,7 +187,8 @@ public class ChatbotJasonZ implements Topic {
 								chooseResponse("yes");
 							}
 						}
-						ChatbotMain.print("????");
+						ChatbotMain.print("Say the name of a song cmon");
+						quiter++;
 						turnBack();
 					}
 			}
