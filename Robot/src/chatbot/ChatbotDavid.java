@@ -85,12 +85,14 @@ public class ChatbotDavid implements Topic {
 							exitThisChatBot();
 						}
 						}
+					ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too! "
+							+ "What a coincidence! Im glad we spoke even though you did not want to play my game. "
+							+ "I guess this is goodbye!" );
+					exitThisChatBot();
 			}
-			
-				ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too! "
-						+ "What a coincidence!" );
 			}
-				 while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
+				 while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1 
+						 && ChatbotMain.findKeyword(response, confirmation, 0) == 0) {
 					 hintIndex++;		
 					 numberOfGuesses--;
 					 if(hintIndex < 5) {
