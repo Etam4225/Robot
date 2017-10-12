@@ -110,16 +110,15 @@ public class ChatbotEthan implements Topic {
 						}
 					}
 					else {
-						if(!saidYesorNo) {
+						if(!saidYesorNo && annoyedCounter < 5) {
 							printMessage(annoyed[annoyedCounter]);
-							if(annoyedCounter == 5) {
-								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
-								annoyedCounter = 0;
-								goToDiffChatBot();
-							}
-							else {
-								annoyedCounter++;
-							}
+						}
+						if(annoyedCounter > 4) {
+							printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
+							goToDiffChatBot();
+						}
+						else {
+							annoyedCounter++;
 						}
 					}
 				}	
@@ -132,31 +131,37 @@ public class ChatbotEthan implements Topic {
 		ChatbotMain.print(message);
 	}
 	public void goToDiffChatBot() {
-		if(watchMovie && annoyedCounter != 5 ) {
+		if(watchMovie && annoyedCounter < 4 ) {
 			printMessage("Hey since you watched " +userMovieWatch+ ",if you want to go to the other bots just say music or book");
 			response = ChatbotMain.getInput();
-			if(ChatbotMain.findKeyword(response, "Music", 0) >= 0 && userMovieWatch.equals(movieBotWatch[0])) {
+			if(ChatbotMain.findKeyword(response, "music", 0) >= 0 && userMovieWatch.equals(movieBotWatch[0])) {
 				ChatbotMain.chatbot.getJasonZ().talk(null);
 			}
-			if(ChatbotMain.findKeyword(response, "Music", 0) >= 0 && !userMovieWatch.equals(movieBotWatch[0])){
+			if(ChatbotMain.findKeyword(response, "music", 0) >= 0 && userMovieWatch.equals(movieBotWatch[1])){
 				printMessage("I'm sorry but the Music Chatbot doesn't have Harry Potter programmed.");
 				exitThisChatBot();
 			}
 			if(ChatbotMain.findKeyword(response, "Book", 0) >= 0) {
 				ChatbotMain.chatbot.getDavid().talk(null);
 			}
+		}else {
+			printMessage("I'll be sure to watch " +userMovieWatch+ " when I can! Wait..I'm a chatbot oops");
 		}
-		printMessage("I'll be sure to watch " +userMovieWatch+ " when I can! Wait..I'm a chatbot oops");
-		saidYesorNo = false;
-		incorrectAnswer = true;
-		lordPick = false;
-		watchMovie = false;
-		annoyedCounter = 0;
-		strikeCounter = 0;
-		hintCounter = 0;
 		exitThisChatBot();
 	}
 	public void exitThisChatBot() {
+		goodbyeKeyword = "bye";
+		saidYesorNo = false;
+		annoyedCounter = 0;
+		response = "";		
+		incorrectAnswer = true;
+		hintCounter = 0;
+		strikeCounter = 0;
+		lordPick = false;
+		watchMovie = false;
+		userMovieWatch = "";
+		
+		myRandNum = 0;
 		ChatbotMain.chatbot.changeChatting();
 		ChatbotMain.chatbot.startChatting();
 	}
