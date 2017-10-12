@@ -136,7 +136,7 @@ public class ChatbotDavid implements Topic {
 	}
 	public void chooseOption() {
 		if(ChatbotMain.findKeyword(response, "Play again", 0) == 0) {
-			startNewGame();
+			
 		}
 		if(ChatbotMain.findKeyword(response, "Learn about the movie version", 0) == 0) {
 			
