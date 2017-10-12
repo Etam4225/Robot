@@ -36,6 +36,8 @@ public class ChatbotDavid implements Topic {
 	private int hintIndex;
 	private int numberOfGuesses;
 	private String[] nRead;
+	private String pAgain;
+	private String switchChatbot;
 	
 	public ChatbotDavid() {
 		String[] temp = {"books", "novels", "book", "reading"};
@@ -52,6 +54,8 @@ public class ChatbotDavid implements Topic {
 		confirmation = "Ok";
 		hintIndex = 0;
 		numberOfGuesses = 5;
+		pAgain = "Play again";
+		switchChatbot = "Learn about the movie version";
 	}
 	
 	public void talk(String response) {
@@ -133,17 +137,22 @@ public class ChatbotDavid implements Topic {
 		ChatbotMain.chatbot.startChatting();
 	}
 	public void chooseOption() {
-		if(ChatbotMain.findKeyword(response, "Play again", 0) == 0) {
-			
+		if(ChatbotMain.findKeyword(response, pAgain, 0) == 0) {
+			hintIndex = 0;
+			ChatbotMain.print("Great! This was the option I would have chose too. You know the rules! Here is your "
+					+ "first hint: " + (lotrHints[hintIndex]));
+			response = ChatbotMain.getInput();
 		}
-		if(ChatbotMain.findKeyword(response, "Learn about the movie version", 0) == 0) {
-			
+		if(ChatbotMain.findKeyword(response, switchChatbot, 0) == 0) {
+			ChatbotMain.chatbot.getEthan().talk(null);
 		}
-		if(ChatbotMain.findKeyword(response, "Play again", 0) == -1 
-				&& ChatbotMain.findKeyword(response, "Learn about the movie version", 0) == -1) {
+		if(ChatbotMain.findKeyword(response, pAgain, 0) == -1 
+				&& ChatbotMain.findKeyword(response, switchChatbot, 0) == -1) {
 			ChatbotMain.print("Im sorry " + ChatbotMain.chatbot.getUsername() + ", I don't understand what you are saying. "
 					+ "If you want to play again with a different book type 'play again' and if you want to "
 					+ "learn about the movie version type 'learn about the movie version.' Sorry for the inconvenience.");
+			response = ChatbotMain.getInput();
+			chooseOption();
 		}
 	}
 }
