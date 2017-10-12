@@ -112,7 +112,7 @@ public class ChatbotEthan implements Topic {
 					else {
 						if(!saidYesorNo) {
 							printMessage(annoyed[annoyedCounter]);
-							if(annoyedCounter == 4) {
+							if(annoyedCounter == 5) {
 								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
 								goToDiffChatBot();
 							}
@@ -131,7 +131,7 @@ public class ChatbotEthan implements Topic {
 		ChatbotMain.print(message);
 	}
 	public void goToDiffChatBot() {
-		if(watchMovie && annoyedCounter != 4) {
+		if(watchMovie && annoyedCounter != 5 ) {
 			printMessage("Hey since you watched " +userMovieWatch+ ",if you want to go to the other bots just say music or book");
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, "Music", 0) >= 0 && userMovieWatch.equals(movieBotWatch[0])) {
@@ -144,10 +144,9 @@ public class ChatbotEthan implements Topic {
 			if(ChatbotMain.findKeyword(response, "Book", 0) >= 0) {
 				ChatbotMain.chatbot.getDavid().talk(null);
 			}
-		}else {
-			printMessage("I'll be sure to watch " +userMovieWatch+ " when I can! Wait..I'm a chatbot oops");
-			exitThisChatBot();
 		}
+		printMessage("I'll be sure to watch " +userMovieWatch+ " when I can! Wait..I'm a chatbot oops");
+		exitThisChatBot();
 	}
 	public void exitThisChatBot() {
 		ChatbotMain.chatbot.changeChatting();
