@@ -71,6 +71,13 @@ public class ChatbotDavid implements Topic {
 				 while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
 					 hintIndex++;		
 					 numberOfGuesses--;
+					 if(numberOfGuesses == 0 && hintIndex >= 4) {
+						 hintIndex = 0;
+						 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
+						 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
+						 		+ "learn about the movie version?");
+						 response = ChatbotMain.getInput();
+					 }
 					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
 						+ " next hint: " + (hHints[hintIndex]));
 					 response = ChatbotMain.getInput();	 	
@@ -81,12 +88,6 @@ public class ChatbotDavid implements Topic {
 				 				+ "Or do you want to play again with a different book?");
 						 response = ChatbotMain.getInput();
 					}
-				 if(numberOfGuesses == 0 && hintIndex > 4) {
-					 hintIndex = 0;
-					 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
-					 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
-					 		+ "learn about the movie version?");
-				 }
 				 //response = ChatbotMain.getInput();
 			}
 			if(ChatbotMain.findKeyword(response, "no", 0) == 0) {
