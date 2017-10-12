@@ -58,7 +58,7 @@ public class ChatbotDavid implements Topic {
 		hintIndex = 0;
 		numberOfGuesses = 5;
 		pAgain = "Play again";
-		switchChatbot = "Learn about the movie version";
+		switchChatbot = "Learn";
 		gameChatbot = "games";
 		musicChatbot = "music";
 		moviesChatbot = "movies";
@@ -87,6 +87,7 @@ public class ChatbotDavid implements Topic {
 						 		+ "learn about the movie version?");
 						 response = ChatbotMain.getInput();
 						 chooseOption();
+							response = ChatbotMain.getInput();
 					 }
 				}
 				}
@@ -123,6 +124,7 @@ public class ChatbotDavid implements Topic {
 				 				+ "Or do you want to play again with a different book?");
 						 response = ChatbotMain.getInput();
 						 chooseOption();
+							response = ChatbotMain.getInput();
 					}
 		}
 		//access variables from other classes
@@ -184,13 +186,14 @@ public class ChatbotDavid implements Topic {
 		if(ChatbotMain.findKeyword(response, switchChatbot, 0) == 0) {
 			ChatbotMain.chatbot.getEthan().talk(null);
 		}
-		if(ChatbotMain.findKeyword(response, pAgain, 0) == -1 
-				&& ChatbotMain.findKeyword(response, switchChatbot, 0) == -1) {
+		else {
 			ChatbotMain.print("Im sorry " + ChatbotMain.chatbot.getUsername() + ", I don't understand what you are saying. "
 					+ "If you want to play again with a different book type 'play again' and if you want to "
-					+ "learn about the movie version type 'learn about the movie version.' Sorry for the inconvenience.");
+					+ "learn about the movie version type 'learn.' Sorry for the inconvenience.");
 			response = ChatbotMain.getInput();
 			chooseOption();
-		}
+		} 
 	}
 }
+//(ChatbotMain.findKeyword(response, pAgain, 0) == -1 
+//&& ChatbotMain.findKeyword(response, switchChatbot, 0) == -1) {
