@@ -63,34 +63,8 @@ public class ChatbotDavid implements Topic {
 				ChatbotMain.print("Great! Here's how to play: You have 5 guesses to think of the book I am thinking of right now. "
 						+ "Don't worry I'll give you hints. Here's your first one: " +  (hHints[hintIndex]));
 				response = ChatbotMain.getInput();
-				if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
-			 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
-			 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
-			 				+ "Or do you want to play again with a different book?");
 				}
-				 while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
-					 hintIndex++;		
-					 numberOfGuesses--;
-					 if(numberOfGuesses == 0 && hintIndex >= 4) {
-						 hintIndex = 0;
-						 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
-						 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
-						 		+ "learn about the movie version?");
-						 response = ChatbotMain.getInput();
-					 }
-					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
-						+ " next hint: " + (hHints[hintIndex]));
-					 response = ChatbotMain.getInput();	 	
-				}
-				 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
-				 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
-				 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
-				 				+ "Or do you want to play again with a different book?");
-						 response = ChatbotMain.getInput();
-					}
-				 //response = ChatbotMain.getInput();
-			}
-			if(ChatbotMain.findKeyword(response, "no", 0) == 0) {
+			while(ChatbotMain.findKeyword(response, "no", 0) == 0) {
 				noCount++;
 				if(noCount < 5) {
 					calmSarcasticIndex = (int)(Math.random()*calmReply.length);
@@ -102,23 +76,47 @@ public class ChatbotDavid implements Topic {
 					ChatbotMain.print(sarcasticReply[calmSarcasticIndex]);
 					response = ChatbotMain.getInput();
 				}
+				if(noCount > 8) {
+					ChatbotMain.print("Fine! :( We won't play my game then. I see how it is. Tell me about your favorite book then.");
+					response = ChatbotMain.getInput();
+					for(int i = 0; i < nRead.length; i++) {
+						if(ChatbotMain.findKeyword(response, nRead[i], 0) >= 0) {
+							ChatbotMain.print("If you don't read what was the point in wanting to talk about books? This is goodbye.");
+							exitThisChatBot();
+						}
+						}
 			}
-			if(noCount > 8) {
-				ChatbotMain.print("Fine! :( We won't play my game then. I see how it is. Tell me about your favorite book then.");
-				response = ChatbotMain.getInput();
-				for(int i = 0; i < nRead.length; i++) {
-					if(ChatbotMain.findKeyword(response, nRead[i], 0) >= 0) {
-						ChatbotMain.print("If you don't read what was the point in wanting to talk about books? This is goodbye.");
-						exitThisChatBot();
-					}
-					}
+			
 				ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + "! I love that book too! "
 						+ "What a coincidence!" );
 			}
+				 while(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == -1) {
+					 hintIndex++;		
+					 numberOfGuesses--;
+					 if(hintIndex < 5) {
+					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
+						+ " next hint: " + (hHints[hintIndex]));
+					 response = ChatbotMain.getInput();	 	
+					 }
+					 if(numberOfGuesses == 0) {
+						 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
+						 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
+						 		+ "learn about the movie version?");
+						 response = ChatbotMain.getInput();
+					 }
+				}
+				 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
+				 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
+				 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
+				 				+ "Or do you want to play again with a different book?");
+						 response = ChatbotMain.getInput();
+					}
+		}
+				 //response = ChatbotMain.getInput();
 		//access variables from other classes
 		}
 				
-		}
+		
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++) {
 			//IMPORTANT (on rubric) USE FINDKEYWORD OVER INDEX OF
