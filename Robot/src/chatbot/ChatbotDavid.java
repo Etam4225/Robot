@@ -38,6 +38,9 @@ public class ChatbotDavid implements Topic {
 	private String[] nRead;
 	private String pAgain;
 	private String switchChatbot;
+	private String gameChatbot;
+	private String musicChatbot;
+	private String moviesChatbot;
 	
 	public ChatbotDavid() {
 		String[] temp = {"books", "novels", "book", "reading"};
@@ -56,7 +59,10 @@ public class ChatbotDavid implements Topic {
 		numberOfGuesses = 5;
 		pAgain = "Play again";
 		switchChatbot = "Learn about the movie version";
-	}
+		gameChatbot = "games";
+		musicChatbot = "music";
+		moviesChatbot = "movies";
+		}
 	
 	public void talk(String response) {
 		ChatbotMain.print("Hey " + ChatbotMain.chatbot.getUsername() + "! So you want to talk about books? "
@@ -139,9 +145,41 @@ public class ChatbotDavid implements Topic {
 	public void chooseOption() {
 		if(ChatbotMain.findKeyword(response, pAgain, 0) == 0) {
 			hintIndex = 0;
+			numberOfGuesses = 5;
 			ChatbotMain.print("Great! This was the option I would have chose too. You know the rules! Here is your "
 					+ "first hint: " + (lotrHints[hintIndex]));
 			response = ChatbotMain.getInput();
+			while(ChatbotMain.findKeyword(response, lotrAnswer , 0) == -1 ) {
+				hintIndex++;		
+				numberOfGuesses--;
+				if(hintIndex < 5) {
+					 ChatbotMain.print("Nope, that's the wrong answer! You have " + numberOfGuesses + " left. Try again! Here is your"
+						+ " next hint: " + (lotrHints[hintIndex]));
+					 response = ChatbotMain.getInput();	 	
+					 }
+				 if(numberOfGuesses == 0) {
+					 ChatbotMain.print("Sorry " + ChatbotMain.chatbot.getUsername() + ", you did not get the right answer."
+					 		+ " The right answer is Lord of The Rings! I really enjoyed talking to you despite being a robot. "
+					 		+ "I hope we get to talk again but this is goodbye " + ChatbotMain.chatbot.getUsername() + ". "
+					 				+ "Until next time!");
+					 exitThisChatBot();
+				 }
+			}
+			if(ChatbotMain.findKeyword(response, lotrAnswer , 0) == 0) {
+		 		ChatbotMain.print("Wow " + ChatbotMain.chatbot.getUsername() + ", you got it with " + numberOfGuesses + " "
+		 				+ "guesses left! That's pretty impressive. Why don't you explore my other options? Just type 'music', 'games',"
+		 				+ " or 'movies'");
+		 		response = ChatbotMain.getInput();
+		 		if(ChatbotMain.findKeyword(response, gameChatbot, 0) == 0) {
+		 			ChatbotMain.chatbot.getjasony().talk(null);
+		 		}
+		 		if(ChatbotMain.findKeyword(response, musicChatbot, 0) == 0) {
+		 			ChatbotMain.chatbot.getJasonZ().talk(null);
+		 		}
+		 		if(ChatbotMain.findKeyword(response, moviesChatbot, 0) == 0) {
+		 			ChatbotMain.chatbot.getEthan().talk(null);
+		 		}
+			}
 		}
 		if(ChatbotMain.findKeyword(response, switchChatbot, 0) == 0) {
 			ChatbotMain.chatbot.getEthan().talk(null);
