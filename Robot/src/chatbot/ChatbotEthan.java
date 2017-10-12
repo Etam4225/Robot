@@ -68,10 +68,9 @@ public class ChatbotEthan implements Topic {
 	}
 
 	public void talk(String response) {
-		printMessage("So what's your favorite movie, " +ChatbotMain.chatbot.getUsername()+ "?");
+		printMessage("So what's your favorite movie, " +ChatbotMain.chatbot.getUsername()+ "? pssst..Mine is Lord of the Rings & Harry Potter");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
-			//response = ChatbotMain.getInput();
 			userMovieWatch = response;
 			for(int i = 0; i < movieBotWatch.length; i++) {
 				if(ChatbotMain.findKeyword(response, movieBotWatch[i], 0) >= 0) {
@@ -132,7 +131,7 @@ public class ChatbotEthan implements Topic {
 		ChatbotMain.print(message);
 	}
 	public void goToDiffChatBot() {
-		if(watchMovie) {
+		if(watchMovie && annoyedCounter != 4) {
 			printMessage("Hey since you watched " +userMovieWatch+ ",if you want to go to the other bots just say music or book");
 			response = ChatbotMain.getInput();
 			if(ChatbotMain.findKeyword(response, "Music", 0) >= 0 && userMovieWatch.equals(movieBotWatch[0])) {
