@@ -114,6 +114,7 @@ public class ChatbotEthan implements Topic {
 							printMessage(annoyed[annoyedCounter]);
 							if(annoyedCounter == 5) {
 								printMessage("alright im done with you, " +ChatbotMain.chatbot.getUsername()+". Bye.");
+								annoyedCounter = 0;
 								goToDiffChatBot();
 							}
 							else {
@@ -146,6 +147,13 @@ public class ChatbotEthan implements Topic {
 			}
 		}
 		printMessage("I'll be sure to watch " +userMovieWatch+ " when I can! Wait..I'm a chatbot oops");
+		saidYesorNo = false;
+		incorrectAnswer = true;
+		lordPick = false;
+		watchMovie = false;
+		annoyedCounter = 0;
+		strikeCounter = 0;
+		hintCounter = 0;
 		exitThisChatBot();
 	}
 	public void exitThisChatBot() {
