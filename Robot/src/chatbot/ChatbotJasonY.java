@@ -7,6 +7,7 @@ public class ChatbotJasonY implements Topic{
 	private String[] comment;
 	private String[] insultWords;
 	private String[] goodWords;
+	private String[] different;
 	private String goodbyeKeyword;
 	private String response;
 	private int happyCount;
@@ -73,6 +74,8 @@ public class ChatbotJasonY implements Topic{
 		insultWords = insult;
 		String[] praise = {"good", "nice", "great", "cool"};
 		goodWords = praise;
+		String[] switchWords = {"music", "movies","movie"};
+		different = switchWords;		
 		goodbyeKeyword = "bye";
 		response = "";
 		happyCount = 0;
@@ -89,15 +92,18 @@ public class ChatbotJasonY implements Topic{
 				+ "played with moderation, one can prevent that. But anyways what do you want to talk about?");
 		response = ChatbotMain.getInput();
 		while(ChatbotMain.findKeyword(response, goodbyeKeyword, 0) == -1) {
+			switchChat(response);
 			keywords(response);
 			insult(response);
 			praise(response);
 			if (found) {
 				found = false;
+				ChatbotMain.print("So what do you want to talk about?");
 				response = ChatbotMain.getInput(); 	
 			}
 			else {
-				ChatbotMain.print("Altough I may be an intelligent machine, I don't know everything in the world.");
+				ChatbotMain.print("Although I may be an intelligent machine, I don't know ever game in the world. Try "
+						+ "saying games like Overwatch, World of Warcraft or Final Fantasy.");
 				response = ChatbotMain.getInput(); 		
 			}	
 		}  
@@ -147,6 +153,36 @@ public class ChatbotJasonY implements Topic{
 				ChatbotMain.print("Nope, take that back.");
 				if (happyCount > -3) {
 					happyCount--;
+				}
+			}
+		}
+	}
+	
+	public void switchChat(String response) {
+		for(int i = 0; i < different.length; i++) {
+			if (ChatbotMain.findKeyword(response, different[i], 0) >= 0) {
+				ChatbotMain.print("Well since you said " + different[i] + ", do you want to switch over to that section?");
+				boolean noNonsense = false;
+				response = ChatbotMain.getInput(); 	
+				while (!noNonsense) {
+					if (ChatbotMain.findKeyword(response, "Yes", 0) >= 0) {
+						noNonsense = true;
+						if (different[i].toLowerCase().equals("music")) {
+							ChatbotMain.print("Well, it was nice talking to you! Say hi to the other chatbot for me!");
+							ChatbotMain.chatbot.getJasonZ().talk(null);
+						}
+						ChatbotMain.print("Well, it was nice talking to you! Say hi to the other chatbot for me!");
+						ChatbotMain.chatbot.getEthan().talk(null);
+					}
+					else if (ChatbotMain.findKeyword(response, "No", 0) >= 0){
+						noNonsense = true;
+						found = true;
+					}
+					else {
+						ChatbotMain.print("Cut the crap dude. Just say yes or no!");
+						happyCount--;
+						response = ChatbotMain.getInput(); 	 
+					}
 				}
 			}
 		}
