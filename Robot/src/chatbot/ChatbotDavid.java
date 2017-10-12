@@ -105,6 +105,7 @@ public class ChatbotDavid implements Topic {
 						 		+ " The right answer is Harry Potter! Do you want to play again with a different book or "
 						 		+ "learn about the movie version?");
 						 response = ChatbotMain.getInput();
+						 chooseOption();
 					 }
 				}
 				 if(ChatbotMain.findKeyword(response, harryPotterAnswer , 0) == 0) {
@@ -112,6 +113,7 @@ public class ChatbotDavid implements Topic {
 				 				+ "guesses left! That's pretty impressive. Do you want to know about the movie version? "
 				 				+ "Or do you want to play again with a different book?");
 						 response = ChatbotMain.getInput();
+						 chooseOption();
 					}
 		}
 				 //response = ChatbotMain.getInput();
@@ -131,5 +133,19 @@ public class ChatbotDavid implements Topic {
 	public void exitThisChatBot() {
 		ChatbotMain.chatbot.changeChatting();
 		ChatbotMain.chatbot.startChatting();
+	}
+	public void chooseOption() {
+		if(ChatbotMain.findKeyword(response, "Play again", 0) == 0) {
+			startNewGame();
+		}
+		if(ChatbotMain.findKeyword(response, "Learn about the movie version", 0) == 0) {
+			
+		}
+		if(ChatbotMain.findKeyword(response, "Play again", 0) == -1 
+				&& ChatbotMain.findKeyword(response, "Learn about the movie version", 0) == -1) {
+			ChatbotMain.print("Im sorry " + ChatbotMain.chatbot.getUsername() + ", I don't understand what you are saying. "
+					+ "If you want to play again with a different book type 'play again' and if you want to "
+					+ "learn about the movie version type 'learn about the movie version.' Sorry for the inconvenience.");
+		}
 	}
 }
